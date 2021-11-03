@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import styles from "./styles/index.module.scss";
-import { Button } from "antd";
+import { Button, Input } from "antd";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
           Learn React
         </a>
         <Button type="primary" danger className={styles.pink}>
-          hay
+          你好世界
         </Button>
       </header>
     </div>
