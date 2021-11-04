@@ -1,0 +1,17 @@
+.logo {
+  width: 18%;
+  float: left;
+  height: 62px;
+  .img {
+    height: 62px;
+    width: 300px;
+  }
+}
+
+.menu {
+  width: 800px;
+  height: 62px;
+  float: left;
+  display: flex;
+  justify-content: space-evenly;
+}
