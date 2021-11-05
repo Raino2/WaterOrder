@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../styles/index.module.scss";
 import logo from "../images/owoSystem.jpg";
+
 const IndexLogo = () => {
   return (
     <div className={styles.logo}>

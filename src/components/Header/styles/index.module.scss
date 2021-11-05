@@ -1,9 +1,10 @@
 .logo {
   width: 270px;
   float: left;
-  height: 62px;
+  height: 64px;
   margin: 0;
   padding: 0;
+  margin-right: 15px;
   .img {
     height: 62px;
     width: 250px;
@@ -12,9 +13,10 @@
 }
 
 .menu {
-  width: 750px;
-  height: 62px;
+  width: 900px;
+  height: 64px;
   display: flex;
+  float: left;
   justify-content: space-around;
   .list {
     box-sizing: border-box;
@@ -24,14 +26,31 @@
     font-weight: 800;
     font-size: 20px;
     display: block;
-    height: 62px;
-    line-height: 62px;
+    height: 64px;
+    line-height: 64px;
+    text-align: center;
+    // margin-left: 15px;
 
     &:hover {
       color: rgb(24, 144, 255);
       background-color: rgb(249, 249, 249);
       border-top: 3px solid rgb(24, 144, 255);
       padding-bottom: 6px;
+    }
+  }
+}
+
+.avatar {
+  display: flex;
+  float: right;
+  justify-content: center;
+  justify-items: center;
+  width: 300px;
+  height: 64px;
+  vertical-align: middle;
+  .loginLink {
+    font-size: 15px;
+    &:hover {
     }
   }
 }

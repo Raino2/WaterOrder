@@ -1,0 +1,37 @@
+.description {
+  width: 950px;
+  height: 250px;
+  padding-left: 30px;
+
+  .topTitle {
+    text-align: left;
+    font-size: 75px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    font-family: "Open Sans", "PingFang SC", Helvetica, Arial, sans-serif;
+  }
+
+  .secTitle {
+    text-align: left;
+    font-size: 25px;
+    font-weight: 400;
+    margin-bottom: 40px;
+  }
+
+  .loginButton {
+    border-radius: 35px;
+    margin-right: 15px;
+  }
+}
+
+.desArea {
+  position: absolute;
+  left: 350px;
+  top: 180px;
+}
+
+.waterMan {
+  position: absolute;
+  top: 0;
+  right: -204px;
+}
