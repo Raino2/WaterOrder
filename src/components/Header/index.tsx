@@ -1,6 +1,6 @@
 import React from "react";
-import IndexLinkList from "./LinkList";
-import IndexLogo from "./Logo";
+import IndexLinkList from "./components/LinkList";
+import IndexLogo from "./components/Logo";
 
 const WebHeader = () => {
   return (

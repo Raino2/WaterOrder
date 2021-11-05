@@ -10,7 +10,7 @@ const LoginPage = () => {
         style={{
           backgroundColor: "white",
           boxShadow: "0px 6px 16px rgba(0,0,0,0.08) ",
-          padding: 0,
+          padding: '0 20px',
         }}
       >
         <WebHeader />
