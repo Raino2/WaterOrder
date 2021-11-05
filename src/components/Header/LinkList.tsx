@@ -29,12 +29,13 @@ const IndexLinkList = () => {
       link: "",
     },
   ];
+
   return (
     <Space className={styles.menu}>
       {linkConfig.map((item) => {
         return (
-          <Link href={item.link} target="_blank">
-            <h1 style={{ color: "#0050b3" }}>{item.name}</h1>
+          <Link href={item.link} target="_blank" className={styles.list}>
+            {item.name}
           </Link>
         );
       })}

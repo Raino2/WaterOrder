@@ -1,17 +1,36 @@
 .logo {
-  width: 18%;
+  width: 270px;
   float: left;
   height: 62px;
+  margin: 0;
+  padding: 0;
   .img {
     height: 62px;
-    width: 300px;
+    width: 250px;
+    vertical-align: top;
   }
 }
 
 .menu {
-  width: 800px;
+  width: 750px;
   height: 62px;
-  float: left;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  .list {
+    box-sizing: border-box;
+    margin: 0;
+    color: black;
+    height: 100%;
+    font-weight: 800;
+    font-size: 20px;
+    display: block;
+    height: 62px;
+    line-height: 62px;
+    &:hover {
+      color: rgb(24, 144, 255);
+      background-color: rgb(249, 249, 249);
+      border-top: 3px solid rgb(24, 144, 255);
+      padding-bottom: 6px;
+    }
+  }
 }
