@@ -26,7 +26,7 @@ const iconStyles: CSSProperties = {
 };
 
 const LoginModal = (props: any) => {
-  const [loginType, setLoginType] = useState<LoginType>('phone');
+  const [loginType, setLoginType] = useState<LoginType>('account');
   const [visible, setVisible] = useState<boolean>(false);
 
   //当传进来的Props发生变化时，更新visible的状态
