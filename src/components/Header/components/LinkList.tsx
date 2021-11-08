@@ -31,7 +31,7 @@ const IndexLinkList = () => {
     },
   ];
 
-  const menuWidth = 900;
+  const menuWidth = 835;
   const listLength = linkConfig.length;
   const listWidth = menuWidth / listLength;
 
