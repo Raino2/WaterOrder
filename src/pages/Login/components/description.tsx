@@ -2,7 +2,7 @@ import { Button, Modal } from 'antd';
 import React, { useState } from 'react';
 import styles from '../styles/index.module.scss';
 import waterMan from '../images/diliverWaterMan.png';
-import LoginModal from '../../../components/LoginModal';
+import LoginModal from '../../../libs/LoginModal';
 
 const LoginContentDescription = () => {
   const [visible, setVisible] = useState<boolean>(false);

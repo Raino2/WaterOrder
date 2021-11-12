@@ -1,7 +1,7 @@
 import { Layout, Space } from 'antd';
 import { Content, Footer, Header } from 'antd/lib/layout/layout';
 import React from 'react';
-import WebHeader from '../../components/Header';
+import WebHeader from '../../libs/Header';
 import LoginContentDescription from './components/description';
 import styles from './styles/index.module.scss';
 
