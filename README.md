@@ -9,3 +9,5 @@
 - Webpack
 - Node.JS
 - TypeScript
+- Express.Js
+- Mobx

@@ -9,7 +9,7 @@ import {
   TaobaoCircleOutlined,
   WeiboCircleOutlined,
 } from '@ant-design/icons';
-import { message, Tabs, Space, Modal } from 'antd';
+import { message, Tabs, Space, Modal, notification } from 'antd';
 import { CSSProperties, useEffect } from 'react';
 import { useState } from 'react';
 import { TUser } from './interface';
@@ -38,6 +38,18 @@ const LoginModal = (props: any) => {
   const handleCloseLoginModal = () => {
     setVisible(false);
     props.onChange(false);
+  };
+
+  const forgetPassword = () => {
+    notification.error({
+      message: '怎么能忘记密码呢？',
+      description:
+        '用户您好，虽然忘记密码是一个非常不应该的事情，但是事情已经发生了，那我们只能给您出出主意，现在立刻联系客服，并修改密码！',
+      onClick: () => {
+        message.warning('别点了，打电话吧快点儿的！');
+      },
+      duration: 3,
+    });
   };
 
   return (
@@ -148,13 +160,14 @@ const LoginModal = (props: any) => {
               marginBottom: 24,
             }}
           >
-            <ProFormCheckbox noStyle name="autoLogin">
-              自动登录
+            <ProFormCheckbox noStyle name="isRemenber">
+              记住账号
             </ProFormCheckbox>
             <a
               style={{
                 float: 'right',
               }}
+              onClick={forgetPassword}
             >
               忘记密码
             </a>
