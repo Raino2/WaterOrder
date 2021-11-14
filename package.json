@@ -161,5 +161,6 @@
       "jest-watch-typeahead/testname"
     ],
     "resetMocks": true
-  }
+  },
+  "proxy": "localhost:8888"
 }
