@@ -1,0 +1,10 @@
+.errorPageContainer {
+  height: 100%;
+  width: 100%;
+  background-color: pink;
+  .errorMessage {
+    width: 500px;
+    height: 350px;
+    background-color: greenyellow;
+  }
+}
