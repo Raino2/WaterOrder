@@ -16,6 +16,7 @@ import { TUser } from './interface';
 import waterMan from '../../assets/images/diliverWaterMan.png';
 import axios from 'axios';
 import { STORAGE_KEYS } from '../../store/Storage/keys';
+import { authStore } from '../../store/AuthStore/authStore';
 
 type LoginType = 'phone' | 'account';
 
@@ -26,11 +27,11 @@ const iconStyles: CSSProperties = {
   verticalAlign: 'middle',
   cursor: 'pointer',
 };
+let userName: string | null = '';
 
 const LoginModal = (props: any) => {
   const [loginType, setLoginType] = useState<LoginType>('account');
   const [visible, setVisible] = useState<boolean>(false);
-  let userName: string | null = '';
 
   //当传进来的Props发生变化时，更新visible的状态
   useEffect(() => {
@@ -39,7 +40,11 @@ const LoginModal = (props: any) => {
 
   useEffect(() => {
     userName = localStorage.getItem(STORAGE_KEYS.REMENBER_ACCOUNT);
-    console.log(userName);
+    if (userName) {
+      authStore.setRemenber();
+    } else {
+      authStore.setNoRemenber();
+    }
   }, []);
 
   //当visible发生变化时，通知父元素
@@ -64,13 +69,21 @@ const LoginModal = (props: any) => {
   const onLoginFormSubmit = (formValue: TUser) => {
     const { userName, userPass, isRemenber } = formValue;
     return axios
-      .post('/login', {
+      .post('/login/account', {
         userName,
         userPass,
       })
       .then((res) => {
         if (isRemenber) remenberUserCount(userName);
-        console.log(res);
+        message.success('登录成功');
+        authStore.setLogin();
+        authStore.setUser(res.data.data[0]);
+      })
+      .catch((err) => {
+        message.error('登录失败');
+      })
+      .finally(() => {
+        handleCloseLoginModal();
       });
   };
 
@@ -114,6 +127,7 @@ const LoginModal = (props: any) => {
                   size: 'large',
                   prefix: <UserOutlined className={'prefixIcon'} />,
                 }}
+                initialValue={userName || ''}
                 placeholder={'请输入用户名'}
                 rules={[
                   {
@@ -191,7 +205,7 @@ const LoginModal = (props: any) => {
               marginBottom: 24,
             }}
           >
-            <ProFormCheckbox noStyle name="isRemenber">
+            <ProFormCheckbox noStyle name="isRemenber" initialValue={authStore.isRemenber}>
               记住账号
             </ProFormCheckbox>
             <a

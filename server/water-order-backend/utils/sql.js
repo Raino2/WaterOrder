@@ -1,14 +1,5 @@
 const mysqlDB = require('mysql');
 
-//数据库配置信息
-const db = mysqlDB.createConnection({
-  host: 'localhost',
-  port: '3306',
-  user: 'root',
-  password: 'raino123',
-  database: 'water_order',
-});
-
 //自定义封装的SQL方法，后续可以再进一步封装
 const SQL = {
   /**
@@ -19,7 +10,14 @@ const SQL = {
    */
   createSQL: (sql, params, callback) => {
     console.log('进入数据库操作');
-
+    //数据库配置信息
+    const db = mysqlDB.createConnection({
+      host: 'localhost',
+      port: '3306',
+      user: 'root',
+      password: 'raino123',
+      database: 'water_order',
+    });
     db.connect();
     db.query(sql, params, callback);
     db.end();
