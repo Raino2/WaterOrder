@@ -1,0 +1,3 @@
+export enum STORAGE_KEYS {
+  REMENBER_ACCOUNT = '@REMENBER_ACCOUNT',
+}

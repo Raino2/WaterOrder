@@ -10,11 +10,12 @@ import {
   WeiboCircleOutlined,
 } from '@ant-design/icons';
 import { message, Tabs, Space, Modal, notification } from 'antd';
-import { CSSProperties, useEffect } from 'react';
+import { CSSProperties, useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { TUser } from './interface';
 import waterMan from '../../assets/images/diliverWaterMan.png';
 import axios from 'axios';
+import { STORAGE_KEYS } from '../../store/Storage/keys';
 
 type LoginType = 'phone' | 'account';
 
@@ -29,11 +30,17 @@ const iconStyles: CSSProperties = {
 const LoginModal = (props: any) => {
   const [loginType, setLoginType] = useState<LoginType>('account');
   const [visible, setVisible] = useState<boolean>(false);
+  let userName: string | null = '';
 
   //当传进来的Props发生变化时，更新visible的状态
   useEffect(() => {
     setVisible(props.visible);
   }, [props.visible]);
+
+  useEffect(() => {
+    userName = localStorage.getItem(STORAGE_KEYS.REMENBER_ACCOUNT);
+    console.log(userName);
+  }, []);
 
   //当visible发生变化时，通知父元素
   const handleCloseLoginModal = () => {
@@ -62,8 +69,17 @@ const LoginModal = (props: any) => {
         userPass,
       })
       .then((res) => {
+        if (isRemenber) remenberUserCount(userName);
         console.log(res);
       });
+  };
+
+  //记住账号，先清除，后缓存
+  const remenberUserCount = (userName: string) => {
+    if (localStorage.getItem(STORAGE_KEYS.REMENBER_ACCOUNT))
+      localStorage.removeItem(STORAGE_KEYS.REMENBER_ACCOUNT);
+
+    localStorage.setItem(STORAGE_KEYS.REMENBER_ACCOUNT, userName);
   };
 
   return (
