@@ -5,6 +5,7 @@ const login = {
     console.log('接收到用户登录请求了！');
     console.log('userName:', userName);
     console.log('userPass:', userPass);
+    req.send({message:'通信成功！'})
   },
 
   logUser: (res, req) => {},
