@@ -14,6 +14,7 @@ import { CSSProperties, useEffect } from 'react';
 import { useState } from 'react';
 import { TUser } from './interface';
 import waterMan from '../../assets/images/diliverWaterMan.png';
+import axios from 'axios';
 
 type LoginType = 'phone' | 'account';
 
@@ -40,6 +41,7 @@ const LoginModal = (props: any) => {
     props.onChange(false);
   };
 
+  //忘记密码提示
   const forgetPassword = () => {
     notification.error({
       message: '怎么能忘记密码呢？',
@@ -52,6 +54,18 @@ const LoginModal = (props: any) => {
     });
   };
 
+  const onLoginFormSubmit = (formValue: TUser) => {
+    const { userName, userPass, isRemenber } = formValue;
+    return axios
+      .post('/login', {
+        userName,
+        userPass,
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
   return (
     <Modal visible={visible} footer={null} onCancel={handleCloseLoginModal} centered destroyOnClose>
       <div style={{ backgroundColor: 'white' }}>
@@ -59,6 +73,7 @@ const LoginModal = (props: any) => {
           logo={waterMan}
           title="OWO System"
           subTitle="超级好用的网上订水系统"
+          onFinish={onLoginFormSubmit}
           actions={
             <Space>
               其他登录方式
@@ -78,7 +93,7 @@ const LoginModal = (props: any) => {
           {loginType === 'account' && (
             <>
               <ProFormText
-                name="username"
+                name="userName"
                 fieldProps={{
                   size: 'large',
                   prefix: <UserOutlined className={'prefixIcon'} />,
@@ -92,7 +107,7 @@ const LoginModal = (props: any) => {
                 ]}
               />
               <ProFormText.Password
-                name="password"
+                name="userPass"
                 fieldProps={{
                   size: 'large',
                   prefix: <LockOutlined className={'prefixIcon'} />,
