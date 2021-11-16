@@ -1,3 +1,4 @@
+import { Modal } from 'antd';
 import { observable, action, makeObservable } from 'mobx';
 import { TUser } from './interface';
 
@@ -20,7 +21,16 @@ class AuthStore {
   };
 
   @action setLoginOut = () => {
-    this.isLogin = false;
+    Modal.confirm({
+      title: '退出登录',
+      content: '确定要退出登录？',
+      onOk: () => {
+        this.isLogin = false;
+      },
+      okText: '立刻登出',
+      cancelText: '取消',
+      centered: true,
+    });
   };
 
   @action setRemenber = () => {

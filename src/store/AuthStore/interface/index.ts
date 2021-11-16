@@ -1,8 +1,10 @@
 export type TUser = {
   userName?: string;
   phone?: string;
-  realName?: string;
+  userRealName?: string;
   nickName?: string;
   email?: string;
   address?: string;
+  uid?: string;
+  userPass?: string;
 };
