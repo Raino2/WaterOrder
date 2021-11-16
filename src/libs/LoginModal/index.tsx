@@ -79,7 +79,7 @@ const LoginModal = (props: any) => {
         authStore.setLogin();
         authStore.setUser(res.data.data[0]);
       })
-      .catch((err) => {
+      .catch(() => {
         message.error('登录失败');
       })
       .finally(() => {
@@ -168,7 +168,7 @@ const LoginModal = (props: any) => {
                     message: '请输入手机号！',
                   },
                   {
-                    pattern: /^1\d{10}$/,
+                    pattern: /^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$/,
                     message: '手机号格式错误！',
                   },
                 ]}

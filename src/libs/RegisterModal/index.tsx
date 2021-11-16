@@ -1,4 +1,4 @@
-import { Alert, Button, Form, Input, Modal, Space } from 'antd';
+import { Alert, Button, Form, Input, message, Modal, Space } from 'antd';
 import React from 'react';
 import { SmileOutlined } from '@ant-design/icons';
 import MessageFilled from '@ant-design/icons/lib/icons/MessageFilled';
@@ -6,6 +6,7 @@ import LockFilled from '@ant-design/icons/lib/icons/LockFilled';
 import { placeholder } from '@babel/types';
 import PhoneFilled from '@ant-design/icons/lib/icons/PhoneFilled';
 import MailFilled from '@ant-design/icons/lib/icons/MailFilled';
+import { TUser } from '../../store/AuthStore/interface';
 
 type TProps = {
   visible: boolean;
@@ -43,6 +44,11 @@ const RegisterModal = (props: TProps) => {
     );
   };
 
+  const registerNewUser = (user: TUser) => {
+    const { userName, userPass, phone, email } = user;
+    //TODO:发送注册信息给后端
+  };
+
   return (
     <Modal
       visible={props.visible}
@@ -59,18 +65,41 @@ const RegisterModal = (props: TProps) => {
         autoComplete="off"
         layout="horizontal"
         size="large"
+        onFinish={registerNewUser}
       >
-        <Form.Item name="userName">
+        <Form.Item name="userName" rules={[{ required: true, message: '账号不能为空' }]}>
           <Input prefix={<SmileOutlined />} placeholder="请输入账号" />
         </Form.Item>
-        <Form.Item name="userPass">
+        <Form.Item name="userPass" rules={[{ required: true, message: '密码不能为空' }]}>
           <Input.Password prefix={<LockFilled />} placeholder="请输入密码" />
         </Form.Item>
-        <Form.Item name="phone">
-          <Input prefix={<PhoneFilled />} placeholder="请输入手机号" />
+        <Form.Item
+          name="phone"
+          rules={[
+            { required: true, message: '手机号不能为空' },
+            {
+              pattern: /^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$/,
+              message: '手机号格式错误！',
+            },
+          ]}
+        >
+          <Input prefix={<PhoneFilled />} placeholder="请输入手机号" allowClear />
         </Form.Item>
-        <Form.Item name="email">
-          <Input prefix={<MailFilled />} placeholder="请输入邮箱号" />
+        <Form.Item
+          name="email"
+          rules={[
+            {
+              pattern:
+                /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i,
+              message: '邮箱格式错误',
+            },
+            {
+              required: true,
+              message: '邮箱不能为空',
+            },
+          ]}
+        >
+          <Input prefix={<MailFilled />} placeholder="请输入邮箱号" allowClear />
         </Form.Item>
         <Form.Item>
           <Alert message="注册成功后,请去'个人中心'完善信息" type="warning" />
