@@ -5,9 +5,11 @@ import { UserOutlined } from '@ant-design/icons';
 import LoginModal from '../../LoginModal';
 import { authStore } from '../../../store/AuthStore/authStore';
 import { observer } from 'mobx-react';
+import RegisterModal from '../../RegisterModal';
 
 const IndexAvatar = () => {
   const [visible, setVisible] = useState<boolean>(false);
+  const [resgister, setRegister] = useState<boolean>(false);
 
   const loginLink = () => {
     if (authStore.isLogin)
@@ -27,7 +29,9 @@ const IndexAvatar = () => {
           登录
         </a>
         <Divider type="vertical" />
-        <a className={styles.loginLink}>注册</a>
+        <a className={styles.loginLink} onClick={() => {
+          setRegister(true)
+        }}>注册</a>
       </>
     );
   };
@@ -42,6 +46,12 @@ const IndexAvatar = () => {
         visible={visible}
         onChange={(status: boolean) => {
           setVisible(status);
+        }}
+      />
+      <RegisterModal
+        visible={resgister}
+        onChange={(status) => {
+          setRegister(status);
         }}
       />
     </React.Fragment>

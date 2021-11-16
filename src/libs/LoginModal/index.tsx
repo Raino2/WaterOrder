@@ -102,6 +102,7 @@ const LoginModal = (props: any) => {
           logo={waterMan}
           title="OWO System"
           subTitle="超级好用的网上订水系统"
+          preserve={false}
           onFinish={onLoginFormSubmit}
           actions={
             <Space>
