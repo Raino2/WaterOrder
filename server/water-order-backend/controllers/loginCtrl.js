@@ -15,13 +15,13 @@ const login = {
     `;
 
     SQL.createSQL(sql, [], (err, data) => {
-      if (data.length) {
-        req.send({
+      if (data) {
+        req.json(200,{
           success: true,
           data,
         });
       } else {
-        req.json(400, {
+        req.json(401.1, {
           success: false,
           data: '登陆失败，用户名或密码错误！',
           error: err,
