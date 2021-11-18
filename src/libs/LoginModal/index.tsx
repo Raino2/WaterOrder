@@ -17,6 +17,7 @@ import waterMan from '../../assets/images/diliverWaterMan.png';
 import axios from 'axios';
 import { STORAGE_KEYS } from '../../store/Storage/keys';
 import { authStore } from '../../store/AuthStore/authStore';
+import { tokenStore } from '../../store/TokenStore/token';
 
 type LoginType = 'phone' | 'account';
 
@@ -78,6 +79,7 @@ const LoginModal = (props: any) => {
         message.success('登录成功');
         authStore.setLogin();
         authStore.setUser(res.data.data[0]);
+        if (authStore.user.uid) tokenStore.setLoginToken(authStore.user.uid);
       })
       .catch(() => {
         message.error('登录失败');

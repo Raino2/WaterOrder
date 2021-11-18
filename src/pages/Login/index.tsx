@@ -1,11 +1,17 @@
 import { Layout, Space } from 'antd';
 import { Content, Footer, Header } from 'antd/lib/layout/layout';
-import React from 'react';
+import { observer } from 'mobx-react-lite';
+import React, { useEffect } from 'react';
 import WebHeader from '../../libs/Header';
+import { tokenStore } from '../../store/TokenStore/token';
 import LoginContentDescription from './components/description';
 import styles from './styles/index.module.scss';
 
 const LoginPage = () => {
+  useEffect(() => {
+    tokenStore.autoLoginWithToken();
+  },[])
+
   return (
     <Layout>
       <Header
@@ -34,4 +40,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default observer(LoginPage);

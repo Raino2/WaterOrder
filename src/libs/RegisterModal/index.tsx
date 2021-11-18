@@ -3,10 +3,12 @@ import React from 'react';
 import { SmileOutlined } from '@ant-design/icons';
 import MessageFilled from '@ant-design/icons/lib/icons/MessageFilled';
 import LockFilled from '@ant-design/icons/lib/icons/LockFilled';
-import { placeholder } from '@babel/types';
 import PhoneFilled from '@ant-design/icons/lib/icons/PhoneFilled';
 import MailFilled from '@ant-design/icons/lib/icons/MailFilled';
 import { TUser } from '../../store/AuthStore/interface';
+import axios from 'axios';
+import { authStore } from '../../store/AuthStore/authStore';
+import { tokenStore } from '../../store/TokenStore/token';
 
 type TProps = {
   visible: boolean;
@@ -46,7 +48,24 @@ const RegisterModal = (props: TProps) => {
 
   const registerNewUser = (user: TUser) => {
     const { userName, userPass, phone, email } = user;
-    //TODO:发送注册信息给后端
+
+    axios
+      .post(`/register`, {
+        userName,
+        userPass,
+        phone,
+        email,
+      })
+      .then((res) => {
+        message.success('注册成功！');
+        authStore.setUser(res.data);
+        authStore.setLogin();
+        if (authStore.user.uid) tokenStore.setLoginToken(authStore.user.uid);
+        handleCloseModal();
+      })
+      .catch(() => {
+        message.error('注册失败');
+      });
   };
 
   return (
