@@ -1,5 +1,6 @@
 import { Modal } from 'antd';
 import { observable, action, makeObservable } from 'mobx';
+import { tokenStore } from '../TokenStore/token';
 import { TUser } from './interface';
 
 //用户登录授权管理中心
@@ -26,6 +27,7 @@ class AuthStore {
       content: '确定要退出登录？',
       onOk: () => {
         this.isLogin = false;
+        tokenStore.removeLoginToken();
       },
       okText: '立刻登出',
       cancelText: '取消',

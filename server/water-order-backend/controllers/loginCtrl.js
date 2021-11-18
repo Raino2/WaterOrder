@@ -15,8 +15,8 @@ const login = {
     `;
 
     SQL.createSQL(sql, [], (err, data) => {
-      if (data) {
-        req.json(200,{
+      if (data.length) {
+        req.json(200, {
           success: true,
           data,
         });

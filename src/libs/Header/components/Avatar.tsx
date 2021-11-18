@@ -1,11 +1,13 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Avatar, Divider, Space } from 'antd';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/index.module.scss';
 import { UserOutlined } from '@ant-design/icons';
 import LoginModal from '../../LoginModal';
 import { authStore } from '../../../store/AuthStore/authStore';
 import { observer } from 'mobx-react';
 import RegisterModal from '../../RegisterModal';
+import { tokenStore } from '../../../store/TokenStore/token';
 
 const IndexAvatar = () => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -16,7 +18,7 @@ const IndexAvatar = () => {
       return (
         <Space size="middle" align="baseline">
           <span>
-            欢迎,亲爱的<a>{authStore.user.userRealName}</a>
+            欢迎,亲爱的<a>{tokenStore.userRealName}</a>
           </span>
           <a className={styles.loginLink} onClick={() => authStore.setLoginOut()}>
             退出登录
@@ -29,9 +31,14 @@ const IndexAvatar = () => {
           登录
         </a>
         <Divider type="vertical" />
-        <a className={styles.loginLink} onClick={() => {
-          setRegister(true)
-        }}>注册</a>
+        <a
+          className={styles.loginLink}
+          onClick={() => {
+            setRegister(true);
+          }}
+        >
+          注册
+        </a>
       </>
     );
   };

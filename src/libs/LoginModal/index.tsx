@@ -77,9 +77,10 @@ const LoginModal = (props: any) => {
       .then((res) => {
         if (isRemenber) remenberUserCount(userName);
         message.success('登录成功');
-        authStore.setLogin();
         authStore.setUser(res.data.data[0]);
-        if (authStore.user.uid) tokenStore.setLoginToken(authStore.user.uid);
+        authStore.setLogin();
+        if (authStore.user.uid)
+          tokenStore.setLoginToken(authStore.user.uid, authStore.user.userRealName);
       })
       .catch(() => {
         message.error('登录失败');
@@ -170,7 +171,7 @@ const LoginModal = (props: any) => {
                     message: '请输入手机号！',
                   },
                   {
-                    pattern: /^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$/,
+                    pattern: /^[0-9]{11}$/,
                     message: '手机号格式错误！',
                   },
                 ]}

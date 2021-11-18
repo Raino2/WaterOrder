@@ -19,13 +19,7 @@ const LoginContentDescription = () => {
           <h3 className={styles.secTitle}>基于React实现的便捷网上订水系统，为您的地区定制</h3>
           {authStore.isLogin && (
             <>
-              <Button
-                type="primary"
-                size="large"
-                danger
-                className={styles.loginButton}
-                onClick={() => authStore.setLoginOut()}
-              >
+              <Button type="primary" size="large" danger className={styles.loginButton}>
                 进入首页
               </Button>
               <Button

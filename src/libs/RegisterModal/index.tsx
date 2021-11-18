@@ -40,7 +40,7 @@ const RegisterModal = (props: TProps) => {
             textAlign: 'center',
           }}
         >
-          超级好用的在线订水网站 OWO
+          超级好用的网上订水系统 OWO
         </div>
       </>
     );
@@ -60,7 +60,8 @@ const RegisterModal = (props: TProps) => {
         message.success('注册成功！');
         authStore.setUser(res.data);
         authStore.setLogin();
-        if (authStore.user.uid) tokenStore.setLoginToken(authStore.user.uid);
+        if (authStore.user.uid)
+          tokenStore.setLoginToken(authStore.user.uid, authStore.user.userRealName);
         handleCloseModal();
       })
       .catch(() => {
@@ -97,7 +98,7 @@ const RegisterModal = (props: TProps) => {
           rules={[
             { required: true, message: '手机号不能为空' },
             {
-              pattern: /^0{0,1}(13[0-9]|15[7-9]|153|156|18[7-9])[0-9]{8}$/,
+              pattern: /^[0-9]{11}$/,
               message: '手机号格式错误！',
             },
           ]}
