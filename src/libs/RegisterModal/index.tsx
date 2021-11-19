@@ -129,7 +129,7 @@ const RegisterModal = (props: TProps) => {
             <Button type="primary" htmlType="submit">
               注册账号
             </Button>
-            <Button type="dashed" htmlType="button">
+            <Button type="dashed" htmlType="button" onClick={handleCloseModal}>
               我再逛逛
             </Button>
           </Space>

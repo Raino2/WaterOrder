@@ -12,7 +12,7 @@ import {
 import { message, Tabs, Space, Modal, notification } from 'antd';
 import { CSSProperties, useEffect, useRef } from 'react';
 import { useState } from 'react';
-import { TUser } from './interface';
+import { TUser } from './interfaces/interface';
 import waterMan from '../../assets/images/diliverWaterMan.png';
 import axios from 'axios';
 import { STORAGE_KEYS } from '../../store/Storage/keys';

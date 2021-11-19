@@ -5,7 +5,7 @@ import WebHeader from '../../libs/Header';
 import LoginContentDescription from './components/description';
 import styles from './styles/index.module.scss';
 
-const LoginPage = () => {
+const LoginPage: React.FC<any> = () => {
   return (
     <Layout>
       <Header
