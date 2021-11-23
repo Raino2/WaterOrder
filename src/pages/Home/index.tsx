@@ -1,23 +1,110 @@
-import { Button, Skeleton, Spin } from 'antd';
+import DesktopOutlined from '@ant-design/icons/lib/icons/DesktopOutlined';
+import HomeOutlined from '@ant-design/icons/lib/icons/HomeOutlined';
+import ReadOutlined from '@ant-design/icons/lib/icons/ReadOutlined';
+import ShopOutlined from '@ant-design/icons/lib/icons/ShopOutlined';
+import { Spin, Timeline } from 'antd';
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
 import CarouselShow from '../../libs/Carousel';
+import {
+  ClockCircleOutlined,
+  ShoppingTwoTone,
+  DollarTwoTone,
+  FireTwoTone,
+} from '@ant-design/icons';
+import { TServerBoard } from './interfaces';
 import styles from './styles/index.module.scss';
+import overLay from '../../assets/images/Overlay.jpg';
+import OrderStep from './components/OrderStep';
 
 const HomePage: React.FC<any> = () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const history = useHistory();
   const [loading, setLoading] = useState<boolean>();
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 2000);
   }, []);
 
+  const renderServerBoard = (props: TServerBoard) => {
+    const { icon, title, info, color } = props;
+    return (
+      <div className={styles.server}>
+        <div className={styles.serverIcon} style={{ color: color }}>
+          {icon}
+        </div>
+        <div className={styles.serverMess}>
+          <span style={{ fontSize: 24, fontWeight: 800, marginTop: 14 }}>{title}</span>
+          <span style={{ fontSize: 16, color: 'rgba(0,0,0,0.35)' }}>{info}</span>
+        </div>
+      </div>
+    );
+  };
+
+  const renderTimeLine = () => {
+    return (
+      <Timeline mode="left" style={{ marginTop: 60, marginLeft: 20 }}>
+        <Timeline.Item>&nbsp;&nbsp;2021年10月,我们创建于温州理工学院数智学院</Timeline.Item>
+        <Timeline.Item color="green">
+          经过不懈努力,我们于2021年12月31日前完成了我们的网站开发
+        </Timeline.Item>
+        <Timeline.Item dot={<ClockCircleOutlined style={{ fontSize: '16px' }} />}>
+          &nbsp;&nbsp;2022年初,我们接到了第一笔订单
+        </Timeline.Item>
+        <Timeline.Item color="red">源源不断的订单正在冲击我们的系统</Timeline.Item>
+        <Timeline.Item>
+          &nbsp;&nbsp;我们决定优化我们的产品以及产品的供应链、市场定位等等
+        </Timeline.Item>
+        <Timeline.Item dot={<ClockCircleOutlined style={{ fontSize: '16px' }} />}>
+          未来、我们的产品会变得越来越好，请坚定不移的选择我们的产品，并支持我们！
+        </Timeline.Item>
+      </Timeline>
+    );
+  };
+
   return (
     <Spin spinning={loading} size="large" tip="首页加载中Loading...">
       <div className={styles.homePage} style={{ display: loading ? 'none' : 'block' }}>
         <CarouselShow />
+      </div>
+      <div className={styles.board}>
+        {/* 服务介绍板块 */}
+        <div className={styles.serverBoard}>
+          {renderServerBoard({
+            icon: <ShopOutlined />,
+            title: '线下零售',
+            info: '门店、外卖,多元化销售线',
+            color: 'rgb(228,27,34)',
+          })}
+          {renderServerBoard({
+            icon: <HomeOutlined />,
+            title: '小区配送',
+            info: '提供送到家的订水服务',
+            color: 'rgb(228,27,34)',
+          })}
+          {renderServerBoard({
+            icon: <ReadOutlined />,
+            title: '高校合作',
+            info: '超级便捷,覆盖所有教学楼',
+            color: 'rgb(0,162,232)',
+          })}
+          {renderServerBoard({
+            icon: <DesktopOutlined />,
+            title: '企业优质服务',
+            info: '满足所有企业的日常需求',
+            color: 'rgb(0,162,232)',
+          })}
+        </div>
+        <div className={styles.levelUp}>
+          {renderTimeLine()}
+          <h1 style={{ fontWeight: 800, fontSize: 35 }}>请见证我们的成长！</h1>
+        </div>
+      </div>
+      <div className={styles.orderStep} style={{ backgroundImage: `url(${overLay})` }}>
+        <h1 className={styles.title}>三步获得我们的产品</h1>
+        <div className={styles.step}>
+          <OrderStep icon={<ShoppingTwoTone twoToneColor="#52c41a" />} title="①挑选商品" />
+          <OrderStep icon={<DollarTwoTone twoToneColor="rgb(255,201,14)" />} title="②支付订单" />
+          <OrderStep icon={<FireTwoTone twoToneColor="rgb(240,87,30)" />} title="③火速配送" />
+        </div>
       </div>
     </Spin>
   );

@@ -9,7 +9,7 @@ const IndexLinkList = () => {
       link: '/home',
     },
     {
-      name: '我的订单',
+      name: '商品超市',
       link: '',
     },
     {
