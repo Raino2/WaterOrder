@@ -2,23 +2,30 @@ import DesktopOutlined from '@ant-design/icons/lib/icons/DesktopOutlined';
 import HomeOutlined from '@ant-design/icons/lib/icons/HomeOutlined';
 import ReadOutlined from '@ant-design/icons/lib/icons/ReadOutlined';
 import ShopOutlined from '@ant-design/icons/lib/icons/ShopOutlined';
-import { Spin, Timeline } from 'antd';
+import { message, Rate, Spin, Timeline } from 'antd';
 import { observer } from 'mobx-react-lite';
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import CarouselShow from '../../libs/Carousel';
 import {
   ClockCircleOutlined,
   ShoppingTwoTone,
   DollarTwoTone,
   FireTwoTone,
+  FrownOutlined,
+  MehOutlined,
+  SmileOutlined,
 } from '@ant-design/icons';
 import { TServerBoard } from './interfaces';
 import styles from './styles/index.module.scss';
 import overLay from '../../assets/images/Overlay.jpg';
 import OrderStep from './components/OrderStep';
+import { authStore } from '../../store/AuthStore/authStore';
+import axios from 'axios';
+import { useHistory } from 'react-router';
 
 const HomePage: React.FC<any> = () => {
   const [loading, setLoading] = useState<boolean>();
+  const history = useHistory();
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 2000);
@@ -60,6 +67,25 @@ const HomePage: React.FC<any> = () => {
     );
   };
 
+  const postUserRate = (rate: number) => {
+    if (!authStore.isLogin) {
+      message.error('请先登录！');
+      setTimeout(() => {
+        history.push('/login');
+      }, 2000);
+      return;
+    }
+
+    axios
+      .post(`/user/rate`, {
+        uid: authStore.user.uid,
+        rate,
+      })
+      .then((res) => {
+        authStore.userRate = res.data.data.rate;
+      });
+  };
+
   return (
     <Spin spinning={loading} size="large" tip="首页加载中Loading...">
       <div className={styles.homePage} style={{ display: loading ? 'none' : 'block' }}>
@@ -95,7 +121,19 @@ const HomePage: React.FC<any> = () => {
         </div>
         <div className={styles.levelUp}>
           {renderTimeLine()}
-          <h1 style={{ fontWeight: 800, fontSize: 35 }}>请见证我们的成长！</h1>
+          <h1 style={{ fontWeight: 800, fontSize: 20 }}>
+            <span>
+              给我们评分：
+              <Rate
+                defaultValue={authStore.userRate || 5}
+                character={<SmileOutlined />}
+                allowClear={false}
+                allowHalf
+                disabled={!!authStore.userRate}
+                onChange={postUserRate}
+              />
+            </span>
+          </h1>
         </div>
       </div>
       <div className={styles.orderStep} style={{ backgroundImage: `url(${overLay})` }}>
@@ -106,6 +144,7 @@ const HomePage: React.FC<any> = () => {
           <OrderStep icon={<FireTwoTone twoToneColor="rgb(240,87,30)" />} title="③火速配送" />
         </div>
       </div>
+      <div></div>
     </Spin>
   );
 };

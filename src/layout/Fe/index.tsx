@@ -1,10 +1,16 @@
 import { Layout, Space } from 'antd';
 import { Content, Footer, Header } from 'antd/lib/layout/layout';
 import { observer } from 'mobx-react-lite';
+import { useEffect } from 'react';
 import WebHeader from '../../libs/Header';
 import FeRouter from '../../public/FeRouter';
+import { tokenStore } from '../../store/TokenStore/token';
 
 const FeLayout: React.FC<any> = () => {
+  useEffect(() => {
+    tokenStore.autoLoginWithToken();
+  }, []);
+
   return (
     <Layout>
       <Header

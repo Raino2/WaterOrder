@@ -1,7 +1,4 @@
-import { Layout, Space } from 'antd';
-import { Content, Footer, Header } from 'antd/lib/layout/layout';
 import { observer } from 'mobx-react-lite';
-import WebHeader from '../../libs/Header';
 import LoginContentDescription from './components/description';
 import styles from './styles/index.module.scss';
 

@@ -1,4 +1,4 @@
-import { Button, Modal } from 'antd';
+import { Button } from 'antd';
 import React, { useState } from 'react';
 import styles from '../styles/index.module.scss';
 import waterMan from '../images/diliverWaterMan.png';

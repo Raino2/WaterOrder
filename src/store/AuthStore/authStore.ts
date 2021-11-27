@@ -1,5 +1,6 @@
 import { Modal } from 'antd';
 import { observable, action, makeObservable } from 'mobx';
+import { loginCallback } from '../../utils/callback';
 import { tokenStore } from '../TokenStore/token';
 import { TUser } from './interface';
 
@@ -12,6 +13,7 @@ class AuthStore {
   @observable isLogin: boolean = false;
   @observable user: TUser = {};
   @observable isRemenber: boolean = false;
+  @observable userRate?: number;
 
   @action setUser = (user: TUser) => {
     this.user = user;
@@ -19,6 +21,7 @@ class AuthStore {
 
   @action setLogin = () => {
     this.isLogin = true;
+    loginCallback();
   };
 
   @action setLoginOut = () => {

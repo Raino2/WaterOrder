@@ -78,9 +78,9 @@ const LoginModal = (props: any) => {
         if (isRemenber) remenberUserCount(userName);
         message.success('登录成功');
         authStore.setUser(res.data.data[0]);
-        authStore.setLogin();
         if (authStore.user.uid)
           tokenStore.setLoginToken(authStore.user.uid, authStore.user.userRealName);
+        authStore.setLogin();
       })
       .catch(() => {
         message.error('登录失败');

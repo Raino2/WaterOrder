@@ -6,12 +6,6 @@ import IndexLinkList from './components/LinkList';
 import IndexLogo from './components/Logo';
 
 const WebHeader = () => {
-  useEffect(() => {
-    tokenStore.autoLoginWithToken();
-    const userReal = localStorage.getItem(STORAGE_KEYS.TOKEN_USER);
-    if (userReal) tokenStore.userRealName = userReal;
-  }, []);
-
   return (
     <React.Fragment>
       <IndexLogo />
