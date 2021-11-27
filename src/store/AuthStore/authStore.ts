@@ -31,6 +31,7 @@ class AuthStore {
       onOk: () => {
         this.isLogin = false;
         tokenStore.removeLoginToken();
+        this.userRate = undefined;
       },
       okText: '立刻登出',
       cancelText: '取消',

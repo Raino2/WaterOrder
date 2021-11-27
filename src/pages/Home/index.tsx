@@ -3,16 +3,14 @@ import HomeOutlined from '@ant-design/icons/lib/icons/HomeOutlined';
 import ReadOutlined from '@ant-design/icons/lib/icons/ReadOutlined';
 import ShopOutlined from '@ant-design/icons/lib/icons/ShopOutlined';
 import { message, Rate, Spin, Timeline } from 'antd';
-import { observer } from 'mobx-react-lite';
-import React, { ReactNode, useEffect, useState } from 'react';
+import { observer } from 'mobx-react';
+import React, { useEffect, useState } from 'react';
 import CarouselShow from '../../libs/Carousel';
 import {
   ClockCircleOutlined,
   ShoppingTwoTone,
   DollarTwoTone,
   FireTwoTone,
-  FrownOutlined,
-  MehOutlined,
   SmileOutlined,
 } from '@ant-design/icons';
 import { TServerBoard } from './interfaces';
@@ -82,6 +80,7 @@ const HomePage: React.FC<any> = () => {
         rate,
       })
       .then((res) => {
+        message.success('感谢您的反馈！');
         authStore.userRate = res.data.data.rate;
       });
   };
@@ -129,6 +128,7 @@ const HomePage: React.FC<any> = () => {
                 character={<SmileOutlined />}
                 allowClear={false}
                 allowHalf
+                value={authStore.userRate}
                 disabled={!!authStore.userRate}
                 onChange={postUserRate}
               />
