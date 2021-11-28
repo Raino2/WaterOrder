@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 export type TServerBoard = {
   icon: React.ReactNode;

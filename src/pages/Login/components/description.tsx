@@ -4,7 +4,7 @@ import styles from '../styles/index.module.scss';
 import waterMan from '../images/diliverWaterMan.png';
 import LoginModal from '../../../libs/LoginModal';
 import { authStore } from '../../../store/AuthStore/authStore';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
 import { useHistory } from 'react-router';
 
 const LoginContentDescription = () => {

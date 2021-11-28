@@ -57,7 +57,7 @@ const user = {
         });
       } else {
         res.json(200, {
-          data: { rate },
+          data: [{ rate }],
           success: true,
         });
       }

@@ -15,7 +15,7 @@ export const loginCallback = () => {
       },
     })
     .then((res) => {
-      authStore.setUser(res.data.data[0]);
+      res.data.data.length && authStore.setUser(res.data.data[0]);
     });
 
   //获取用户的真实姓名
@@ -30,6 +30,6 @@ export const loginCallback = () => {
       },
     })
     .then((res) => {
-      authStore.userRate = res.data.data.rate;
+      res.data.data.length && authStore.setUserRate(res.data.data[0].rate);
     });
 };

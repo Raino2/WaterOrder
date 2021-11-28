@@ -36,13 +36,14 @@ const IndexLinkList = () => {
 
   return (
     <div className={styles.menu}>
-      {linkConfig.map((item) => {
+      {linkConfig.map((item, index) => {
         return (
           <Link
             href={item.link}
             target="_self"
             className={styles.list}
             style={{ width: `${listWidth}%` }}
+            key={index}
           >
             {item.name}
           </Link>

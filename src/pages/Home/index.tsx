@@ -2,7 +2,7 @@ import DesktopOutlined from '@ant-design/icons/lib/icons/DesktopOutlined';
 import HomeOutlined from '@ant-design/icons/lib/icons/HomeOutlined';
 import ReadOutlined from '@ant-design/icons/lib/icons/ReadOutlined';
 import ShopOutlined from '@ant-design/icons/lib/icons/ShopOutlined';
-import { message, Rate, Spin, Timeline } from 'antd';
+import { Button, message, Rate, Spin, Timeline } from 'antd';
 import { observer } from 'mobx-react';
 import React, { useEffect, useState } from 'react';
 import CarouselShow from '../../libs/Carousel';
@@ -81,7 +81,7 @@ const HomePage: React.FC<any> = () => {
       })
       .then((res) => {
         message.success('感谢您的反馈！');
-        authStore.userRate = res.data.data.rate;
+        authStore.setUserRate(rate);
       });
   };
 
@@ -123,15 +123,17 @@ const HomePage: React.FC<any> = () => {
           <h1 style={{ fontWeight: 800, fontSize: 20 }}>
             <span>
               给我们评分：
-              <Rate
-                defaultValue={authStore.userRate || 5}
-                character={<SmileOutlined />}
-                allowClear={false}
-                allowHalf
-                value={authStore.userRate}
-                disabled={!!authStore.userRate}
-                onChange={postUserRate}
-              />
+              {
+                <Rate
+                  defaultValue={authStore.userRate || 5}
+                  character={<SmileOutlined />}
+                  allowClear={false}
+                  allowHalf
+                  value={authStore.userRate}
+                  disabled={!!authStore.userRate}
+                  onChange={postUserRate}
+                />
+              }
             </span>
           </h1>
         </div>
@@ -144,7 +146,15 @@ const HomePage: React.FC<any> = () => {
           <OrderStep icon={<FireTwoTone twoToneColor="rgb(240,87,30)" />} title="③火速配送" />
         </div>
       </div>
-      <div></div>
+      <div style={{ width: 230, height: 60, margin: '0 auto', marginTop: 15 }}>
+        <Button
+          type="primary"
+          danger
+          style={{ width: 230, height: 60, fontSize: 28, backgroundColor: 'rgb(236,114,89)' }}
+        >
+          立即下单
+        </Button>
+      </div>
     </Spin>
   );
 };

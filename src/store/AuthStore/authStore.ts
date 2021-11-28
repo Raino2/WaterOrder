@@ -13,10 +13,14 @@ class AuthStore {
   @observable isLogin: boolean = false;
   @observable user: TUser = {};
   @observable isRemenber: boolean = false;
-  @observable userRate?: number;
+  @observable userRate?: number | undefined;
 
   @action setUser = (user: TUser) => {
     this.user = user;
+  };
+
+  @action setUserRate = (rate?: number) => {
+    this.userRate = rate;
   };
 
   @action setLogin = () => {
@@ -31,7 +35,7 @@ class AuthStore {
       onOk: () => {
         this.isLogin = false;
         tokenStore.removeLoginToken();
-        this.userRate = undefined;
+        this.setUserRate(undefined);
       },
       okText: '立刻登出',
       cancelText: '取消',
