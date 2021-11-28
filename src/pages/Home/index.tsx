@@ -125,11 +125,10 @@ const HomePage: React.FC<any> = () => {
               给我们评分：
               {
                 <Rate
-                  defaultValue={authStore.userRate || 5}
                   character={<SmileOutlined />}
                   allowClear={false}
                   allowHalf
-                  value={authStore.userRate}
+                  value={authStore.userRate ? authStore.userRate : 5}
                   disabled={!!authStore.userRate}
                   onChange={postUserRate}
                 />
