@@ -53,9 +53,9 @@ const register = {
             const insetDetail = `
               INSERT
               INTO USER_DETAIL
-              (UID,USERNAME)
-              VALUES (?,?)`;
-            SQL.createSQL(insetDetail, [uid, userName]);
+              (UID,USERNAME,ISADMIN)
+              VALUES (?,?,?)`;
+            SQL.createSQL(insetDetail, [uid, userName, false]);
           }
         });
       }
