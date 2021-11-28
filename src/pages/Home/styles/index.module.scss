@@ -1,0 +1,72 @@
+.homePage {
+  position: relative;
+  width: 100%;
+}
+
+.board {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //水平居中+板型1200px
+
+  .serverBoard {
+    height: 90px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+  }
+
+  .levelUp {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+    height: 300px;
+  }
+}
+
+.server {
+  height: 90px;
+  width: 300px;
+  display: flex;
+  justify-content: left;
+
+  .serverIcon {
+    width: 90px;
+    font-size: 60px;
+    text-align: center;
+    line-height: 90px;
+  }
+
+  .serverMess {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+}
+
+.orderStep {
+  height: 500px;
+  width: 100%;
+
+  .title {
+    font-size: 36px;
+    font-weight: 500;
+    text-align: center;
+    margin: 0 auto;
+    color: #fff;
+    margin-bottom: 85px;
+    padding-top: 50px;
+  }
+
+  .step {
+    height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}

@@ -1,4 +1,5 @@
 import { action, makeObservable, observable } from 'mobx';
+import { login } from '../../utils/login';
 import { authStore } from '../AuthStore/authStore';
 import { STORAGE_KEYS } from '../Storage/keys';
 
@@ -20,8 +21,9 @@ class TokenStore {
   };
 
   @action autoLoginWithToken = () => {
-    if (localStorage.getItem(STORAGE_KEYS.TOKEN_LOGIN)) {
-      authStore.setLogin();
+    const userUid = localStorage.getItem(STORAGE_KEYS.TOKEN_LOGIN);
+    if (userUid) {
+      login.userLogin(userUid);
     }
   };
 

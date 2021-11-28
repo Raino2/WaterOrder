@@ -1,5 +1,6 @@
 import { Modal } from 'antd';
 import { observable, action, makeObservable } from 'mobx';
+import { loginCallback } from '../../utils/callback';
 import { tokenStore } from '../TokenStore/token';
 import { TUser } from './interface';
 
@@ -12,13 +13,19 @@ class AuthStore {
   @observable isLogin: boolean = false;
   @observable user: TUser = {};
   @observable isRemenber: boolean = false;
+  @observable userRate?: number | undefined;
 
   @action setUser = (user: TUser) => {
     this.user = user;
   };
 
+  @action setUserRate = (rate?: number) => {
+    this.userRate = rate;
+  };
+
   @action setLogin = () => {
     this.isLogin = true;
+    loginCallback();
   };
 
   @action setLoginOut = () => {
@@ -28,6 +35,7 @@ class AuthStore {
       onOk: () => {
         this.isLogin = false;
         tokenStore.removeLoginToken();
+        this.setUserRate(undefined);
       },
       okText: '立刻登出',
       cancelText: '取消',

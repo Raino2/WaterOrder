@@ -59,9 +59,9 @@ const RegisterModal = (props: TProps) => {
       .then((res) => {
         message.success('注册成功！');
         authStore.setUser(res.data);
-        authStore.setLogin();
         if (authStore.user.uid)
           tokenStore.setLoginToken(authStore.user.uid, authStore.user.userRealName);
+        authStore.setLogin();
         handleCloseModal();
       })
       .catch(() => {

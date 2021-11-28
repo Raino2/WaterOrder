@@ -1,13 +1,19 @@
-import { Button, Modal } from 'antd';
+import { Button } from 'antd';
 import React, { useState } from 'react';
 import styles from '../styles/index.module.scss';
 import waterMan from '../images/diliverWaterMan.png';
 import LoginModal from '../../../libs/LoginModal';
 import { authStore } from '../../../store/AuthStore/authStore';
-import { observer } from 'mobx-react-lite';
+import { observer } from 'mobx-react';
+import { useHistory } from 'react-router';
 
 const LoginContentDescription = () => {
   const [visible, setVisible] = useState<boolean>(false);
+  const history = useHistory();
+
+  const handleIntoHomePage = () => {
+    history.push('/home');
+  };
 
   return (
     <>
@@ -19,7 +25,13 @@ const LoginContentDescription = () => {
           <h3 className={styles.secTitle}>基于React实现的便捷网上订水系统，为您的地区定制</h3>
           {authStore.isLogin && (
             <>
-              <Button type="primary" size="large" danger className={styles.loginButton}>
+              <Button
+                type="primary"
+                size="large"
+                danger
+                className={styles.loginButton}
+                onClick={handleIntoHomePage}
+              >
                 进入首页
               </Button>
               <Button

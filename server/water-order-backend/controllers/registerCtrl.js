@@ -48,6 +48,14 @@ const register = {
               email,
               uid,
             });
+
+            //------插入数据到用户详情表------
+            const insetDetail = `
+              INSERT
+              INTO USER_DETAIL
+              (UID,USERNAME)
+              VALUES (?,?)`;
+            SQL.createSQL(insetDetail, [uid, userName]);
           }
         });
       }

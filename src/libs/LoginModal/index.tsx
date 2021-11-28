@@ -9,7 +9,7 @@ import {
   TaobaoCircleOutlined,
   WeiboCircleOutlined,
 } from '@ant-design/icons';
-import { message, Tabs, Space, Modal, notification } from 'antd';
+import { message, Tabs, Space, Modal, notification, Popover } from 'antd';
 import { CSSProperties, useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { TUser } from './interfaces/interface';
@@ -78,9 +78,9 @@ const LoginModal = (props: any) => {
         if (isRemenber) remenberUserCount(userName);
         message.success('登录成功');
         authStore.setUser(res.data.data[0]);
-        authStore.setLogin();
         if (authStore.user.uid)
           tokenStore.setLoginToken(authStore.user.uid, authStore.user.userRealName);
+        authStore.setLogin();
       })
       .catch(() => {
         message.error('登录失败');
@@ -121,7 +121,15 @@ const LoginModal = (props: any) => {
             onChange={(activeKey) => setLoginType(activeKey as LoginType)}
           >
             <Tabs.TabPane key={'account'} tab={'账号密码登录'} />
-            <Tabs.TabPane key={'phone'} tab={'手机号登录'} />
+            <Tabs.TabPane
+              key={'phone'}
+              tab={
+                <Popover placement="topLeft" content={'由于需要短信代理服务器,暂不开放手机登录'}>
+                  手机号登录
+                </Popover>
+              }
+              disabled
+            />
           </Tabs>
           {loginType === 'account' && (
             <>
