@@ -58,7 +58,15 @@ const LoginContentDescription = () => {
               >
                 立即登录
               </Button>
-              <Button type="default" danger size="large" className={styles.loginButton}>
+              <Button
+                type="default"
+                danger
+                size="large"
+                className={styles.loginButton}
+                onClick={() => {
+                  history.push('/home');
+                }}
+              >
                 游客浏览
               </Button>
             </>

@@ -50,7 +50,8 @@ const user = {
 
     console.log(sql);
     SQL.createSQL(sql, [], (err, data) => {
-      if (!data.affectedRows) {
+      console.log(data);
+      if (!data) {
         res.json(401, {
           err: '请求失败',
           success: false,

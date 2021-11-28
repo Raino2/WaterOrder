@@ -22,12 +22,13 @@ import axios from 'axios';
 import { useHistory } from 'react-router';
 
 const HomePage: React.FC<any> = () => {
-  const [loading, setLoading] = useState<boolean>();
+  const [loading, setLoading] = useState<boolean>(false);
   const history = useHistory();
 
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 2000);
-  }, []);
+  // //首页加载两秒的动画
+  // useEffect(() => {
+  //   setTimeout(() => setLoading(false), 2000);
+  // }, []);
 
   const renderServerBoard = (props: TServerBoard) => {
     const { icon, title, info, color } = props;
