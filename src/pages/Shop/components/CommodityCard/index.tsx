@@ -1,19 +1,24 @@
 import { Button, message, Space } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './styles/index.module.scss';
 import { ShoppingCartOutlined } from '@ant-design/icons';
+import { TShop } from '../../interfaces';
 
-const CommodityCard: React.FC = () => {
+const CommodityCard: React.FC<TShop> = (props) => {
+  const { uid, name, price, img } = props;
+
   return (
     <div className={styles.card}>
-      <div className={styles.shopImg}>图片</div>
+      <div className={styles.shopImg}>
+        <img src={img} alt="暂无图片信息" width="100%" height="100%" />
+      </div>
       <div>
         <div className={styles.shopTitle}>
-          <a>22元购17L雀巢优活包装饮用水</a>
+          <a>{name}</a>
         </div>
         <div className={styles.toolbarBottom}>
           <div className={styles.price}>
-            价格：<span>￥52.00</span>
+            价格：<span>￥{price}</span>
           </div>
           <Space className={styles.buyToolbar}>
             <Button type="primary" danger>
