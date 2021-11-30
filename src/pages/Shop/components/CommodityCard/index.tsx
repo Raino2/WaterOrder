@@ -18,7 +18,7 @@ const CommodityCard: React.FC<TShop> = (props) => {
         </div>
         <div className={styles.toolbarBottom}>
           <div className={styles.price}>
-            价格：<span>￥{price}</span>
+            价格：<span style={{ fontSize: 26 }}>￥{price}</span>
           </div>
           <Space className={styles.buyToolbar}>
             <Button type="primary" danger>
