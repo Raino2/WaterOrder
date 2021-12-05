@@ -1,0 +1,45 @@
+.card {
+  width: 340px;
+  height: 430px;
+  padding: 20px;
+  background-color: rgb(254, 249, 239);
+  border: rgba(0, 0, 0, 0.15) 1px solid;
+
+  .shopImg {
+    height: 280px;
+    background-color: #abc;
+  }
+
+  .shopTitle {
+    font-size: 18px;
+    margin-top: 10px;
+    height: 30px;
+    line-height: 30px;
+    font-weight: 800;
+    text-align: center;
+    a {
+      color: rgba(0, 0, 0, 0.65);
+    }
+  }
+
+  .toolbarBottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    margin-top: 30px;
+  }
+
+  .price {
+    color: rgb(249, 92, 35);
+    font-weight: 800;
+    font-size: 14px;
+  }
+
+  .buyToolbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+  }
+}

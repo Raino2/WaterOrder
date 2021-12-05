@@ -22,7 +22,9 @@ const LoginContentDescription = () => {
           <h1 className={styles.topTitle}>
             Water Order <span style={{ fontSize: 95, color: '#ff575f' }}>Online</span>
           </h1>
-          <h3 className={styles.secTitle}>基于React实现的便捷网上订水系统，为您的地区定制</h3>
+          <h3 className={styles.secTitle}>
+            基于React/Express实现的便捷网上订水系统，为您的地区定制
+          </h3>
           {authStore.isLogin && (
             <>
               <Button

@@ -151,6 +151,9 @@ const HomePage: React.FC<any> = () => {
           type="primary"
           danger
           style={{ width: 230, height: 60, fontSize: 28, backgroundColor: 'rgb(236,114,89)' }}
+          onClick={() => {
+            history.push('/shop');
+          }}
         >
           立即下单
         </Button>

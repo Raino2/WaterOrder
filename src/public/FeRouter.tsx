@@ -1,14 +1,27 @@
-import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
-import LoginPage from '../pages/Login';
-import HomePage from '../pages/Home';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { Suspense, lazy } from 'react';
 import { observer } from 'mobx-react';
+import { Spin } from 'antd';
+
+const LoginPage = lazy(() => import('../pages/Login'));
+const HomePage = lazy(() => import('../pages/Home'));
+const ShopPage = lazy(() => import('../pages/Shop'));
 
 const FeRouter = () => {
   return (
     <Router>
-      <Route path="/login" component={LoginPage} />
-      <Route path="/home" component={HomePage} />
-      <Route exact path="/" component={LoginPage} />
+      <Suspense
+        fallback={
+          <Spin size="large" tip="Loading..." style={{ display: 'block', margin: '0 auto' }} />
+        }
+      >
+        <Switch>
+          <Route exact path="/" component={LoginPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/home" component={HomePage} />
+          <Route exact path="/shop" component={ShopPage} />
+        </Switch>
+      </Suspense>
     </Router>
   );
 };

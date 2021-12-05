@@ -10,7 +10,7 @@ const IndexLinkList = () => {
     },
     {
       name: '商品超市',
-      link: '',
+      link: '/shop',
     },
     {
       name: '给我留言',
