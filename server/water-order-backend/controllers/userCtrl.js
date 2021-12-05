@@ -31,7 +31,6 @@ const user = {
     FROM USER_DETAIL
     WHERE UID = '${uid}'
     `;
-    console.log(queryRate);
     SQL.createSQL(queryRate, [], (_, data) => {
       res.json(200, {
         data,
@@ -48,7 +47,6 @@ const user = {
     WHERE UID = '${uid}'
     `;
 
-    console.log(sql);
     SQL.createSQL(sql, [], (err, data) => {
       console.log(data);
       if (!data) {

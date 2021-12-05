@@ -6,6 +6,7 @@ import { Spin } from 'antd';
 const LoginPage = lazy(() => import('../pages/Login'));
 const HomePage = lazy(() => import('../pages/Home'));
 const ShopPage = lazy(() => import('../pages/Shop'));
+const ActionPage = lazy(() => import('../pages/Auction'));
 
 const FeRouter = () => {
   return (
@@ -20,6 +21,7 @@ const FeRouter = () => {
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/home" component={HomePage} />
           <Route exact path="/shop" component={ShopPage} />
+          <Route exact path="/auction" component={ActionPage} />
         </Switch>
       </Suspense>
     </Router>

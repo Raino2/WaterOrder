@@ -10,6 +10,7 @@ const SQL = {
    */
   createSQL: (sql, params, callback) => {
     console.log('进入数据库操作');
+    console.log('sql语句：', sql);
     //数据库配置信息
     const db = mysqlDB.createConnection({
       host: 'localhost',
@@ -17,6 +18,7 @@ const SQL = {
       user: 'root',
       password: 'raino123',
       database: 'water_order',
+      multipleStatements: true,
     });
     db.connect();
     db.query(sql, params, callback);

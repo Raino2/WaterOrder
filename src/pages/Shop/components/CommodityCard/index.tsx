@@ -1,8 +1,10 @@
 import { Button, message, Space } from 'antd';
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './styles/index.module.scss';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { TShop } from '../../interfaces';
+import { useHistory } from 'react-router';
+import { shopStore } from '../../../../store/ShopStore/shopStore';
 
 type TProps = {
   info: TShop;
@@ -11,6 +13,17 @@ type TProps = {
 
 const CommodityCard: React.FC<TProps> = (props) => {
   const { uid, name, price, img } = props.info;
+  const history = useHistory();
+
+  const handleGoAuction = () => {
+    shopStore.setShopList([
+      {
+        info: props.info,
+        count: 1,
+      },
+    ]);
+    history.push('/auction');
+  };
 
   return (
     <div className={styles.card}>
@@ -26,7 +39,7 @@ const CommodityCard: React.FC<TProps> = (props) => {
             价格：<span style={{ fontSize: 26 }}>￥{price}</span>
           </div>
           <Space className={styles.buyToolbar}>
-            <Button type="primary" danger>
+            <Button type="primary" danger onClick={handleGoAuction}>
               立即购买
             </Button>
             <div style={{ fontSize: 50, color: 'orangered' }}>
