@@ -4,8 +4,13 @@ import styles from './styles/index.module.scss';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { TShop } from '../../interfaces';
 
-const CommodityCard: React.FC<TShop> = (props) => {
-  const { uid, name, price, img } = props;
+type TProps = {
+  info: TShop;
+  onAdd: (uid: string) => void;
+};
+
+const CommodityCard: React.FC<TProps> = (props) => {
+  const { uid, name, price, img } = props.info;
 
   return (
     <div className={styles.card}>
@@ -25,7 +30,12 @@ const CommodityCard: React.FC<TShop> = (props) => {
               立即购买
             </Button>
             <div style={{ fontSize: 50, color: 'orangered' }}>
-              <ShoppingCartOutlined onClick={() => message.success('加入购物车成功')} />
+              <ShoppingCartOutlined
+                onClick={() => {
+                  props.onAdd(uid);
+                  message.success('加入购物车成功');
+                }}
+              />
             </div>
           </Space>
         </div>

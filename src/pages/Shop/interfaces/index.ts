@@ -10,3 +10,8 @@ export type TShop = {
   rate: number;
   rateCount: number;
 };
+
+export type TShopCar = {
+  info: TShop;
+  count: number;
+};

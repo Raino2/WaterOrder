@@ -1,0 +1,38 @@
+.card {
+  height: 150px;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 15px;
+  border: rgba(0, 0, 0, 0.15) 1px dashed;
+
+  .shopImg {
+    width: 120px;
+  }
+
+  .info {
+    width: 505px;
+
+    .title {
+      height: 60px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 60px;
+      margin: 0;
+    }
+
+    .data {
+      height: 60px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-size: 16px;
+
+      .count {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+      }
+    }
+  }
+}

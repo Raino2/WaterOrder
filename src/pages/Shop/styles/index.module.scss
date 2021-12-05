@@ -1,0 +1,43 @@
+.shopCar {
+  $realHeigt: 40px;
+  width: 130px;
+  height: $realHeigt;
+  position: absolute;
+  top: 20px;
+  right: 180px;
+  border-radius: 50px;
+  background-color: #2db7f5;
+  color: aliceblue;
+  text-align: center;
+  line-height: $realHeigt;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.shopCarMenu {
+  position: relative;
+  width: 720px;
+  height: 600px;
+  overflow: auto;
+  padding: 0;
+  transform: translateX(0);
+
+  .isEmpty {
+    margin: 0 auto;
+    font-size: 30px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .settlement {
+    position: sticky;
+    bottom: 0;
+    height: 50px;
+    display: flex;
+    justify-content: right;
+    background-color: bisque;
+  }
+}
