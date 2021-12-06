@@ -1,7 +1,7 @@
 export type TAdress = {
-  uid: string;
+  uid?: string;
   adress: string;
   name: string;
   phone: string;
-  isCommon: number;
+  isCommon: number | boolean;
 };
