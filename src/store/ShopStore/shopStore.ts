@@ -1,8 +1,20 @@
-import { action, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { TShopCar } from '../../pages/Shop/interfaces';
 
 class ShopStore {
   @observable shopList: TShopCar[] = [];
+
+  @computed get shopSumPrice(): number {
+    return this.shopList.reduce((now, pre) => {
+      return now + pre.info.price * pre.count;
+    }, 0);
+  }
+
+  @computed get shopCount(): number {
+    return this.shopList.reduce((now, pre) => {
+      return now + pre.count;
+    }, 0);
+  }
 
   @action setShopList = (shop: TShopCar[]) => {
     this.shopList = shop;

@@ -1,6 +1,6 @@
-export type TAdress = {
+export type TAddress = {
   uid?: string;
-  adress: string;
+  address: string;
   name: string;
   phone: string;
   isCommon: number | boolean;

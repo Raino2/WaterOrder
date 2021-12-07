@@ -17,10 +17,10 @@ const Shop = {
   },
 
   /**获取用户地址 */
-  getUserAdress: (req, res) => {
+  getUserAddress: (req, res) => {
     const sql = `
-    SELECT uid,adress,name,phone,isCommon
-    FROM ADRESS
+    SELECT uid,address,name,phone,isCommon
+    FROM ADDRESS
     WHERE USERUID = '${req.query.uid}'
     `;
 
@@ -41,14 +41,14 @@ const Shop = {
   },
 
   /**更改用户默认地址 */
-  handleChangeCommonAdress: (req, res) => {
+  handleChangeCommonAddress: (req, res) => {
     const { uid, userUid } = req.body;
     const sql = `
-    UPDATE ADRESS
+    UPDATE ADDRESS
     SET ISCOMMON = 0
     WHERE ISCOMMON = 1 AND USERUID = '${userUid}';
 
-    UPDATE ADRESS
+    UPDATE ADDRESS
     SET ISCOMMON = 1
     WHERE USERUID = '${userUid}' AND UID = '${uid}';
 
@@ -71,31 +71,31 @@ const Shop = {
   },
 
   /**添加新地址 */
-  handleCreateNewAdress: (req, res) => {
-    const { userUid, adress, name, phone, isCommon } = req.body;
+  handleCreateNewAddress: (req, res) => {
+    const { userUid, address, name, phone, isCommon } = req.body;
     const uid = UUID.generateUUID();
     let sql;
     if (isCommon) {
       sql = `
-      UPDATE ADRESS
+      UPDATE ADDRESS
       SET ISCOMMON = 0
       WHERE ISCOMMON = 1 AND USERUID = '${userUid}';
 
-      INSERT INTO ADRESS (UID,ADRESS,USERUID,NAME,PHONE,ISCOMMON)
+      INSERT INTO ADRESS (UID,ADDRESS,USERUID,NAME,PHONE,ISCOMMON)
       VALUES (?,?,?,?,?,?);
     `;
     } else {
       sql = `
-      INSERT INTO ADRESS (UID,ADRESS,USERUID,NAME,PHONE,ISCOMMON)
+      INSERT INTO ADRESS (UID,ADDRESS,USERUID,NAME,PHONE,ISCOMMON)
       VALUES (?,?,?,?,?,?)
     `;
     }
-    SQL.createSQL(sql, [uid, adress, userUid, name, phone, isCommon], (err, data) => {
+    SQL.createSQL(sql, [uid, address, userUid, name, phone, isCommon], (err, data) => {
       if (data) {
         res.json(200, {
           data: {
             uid,
-            adress,
+            address,
             userUid,
             name,
             phone,

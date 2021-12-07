@@ -19,28 +19,37 @@ import React, { useEffect, useState } from 'react';
 import { authStore } from '../../store/AuthStore/authStore';
 import { shopStore } from '../../store/ShopStore/shopStore';
 import ShopCarDetailCard from '../Shop/components/ShopCarDetailCard';
-import { TAdress } from './interface';
+import { TAddress } from './interface';
 import styles from './styles/index.module.scss';
 
 const AuctionPage: React.FC = () => {
-  const [adressList, setAdressList] = useState<TAdress[]>([]);
+  const [addressList, setAddressList] = useState<TAddress[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [adress, setAdress] = useState<string>();
+  const [address, setAddress] = useState<string>();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [addressInfo, setAddressInfo] = useState<string>();
+
+  useEffect(() => {
+    const newInfo = addressList.filter((item) => {
+      return item.uid === address;
+    });
+    newInfo[0] &&
+      setAddressInfo(`${newInfo[0].address} (${newInfo[0].name} 收) ${newInfo[0].phone}`);
+  }, [address, addressList]);
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`/shop/adress`, {
+      .get(`/shop/address`, {
         params: {
           uid: authStore.user.uid,
         },
       })
       .then((res) => {
-        setAdressList(res.data.data);
+        setAddressList(res.data.data);
       })
       .catch((res) => {
-        setAdressList([]);
+        setAddressList([]);
       })
       .finally(() => {
         setLoading(false);
@@ -48,31 +57,32 @@ const AuctionPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    adressList.forEach((item) => {
-      if (item.isCommon) setAdress(item.uid);
+    addressList.forEach((item) => {
+      if (item.isCommon) setAddress(item.uid);
     });
-    adressList.sort((a, b) => {
+    addressList.sort((a, b) => {
       return (b.isCommon as number) - (a.isCommon as number);
     });
-  }, [adressList]);
-  const handleOnAdressRadioChange = (event: RadioChangeEvent) => {
-    setAdress(event.target.value);
+  }, [addressList]);
+
+  const handleOnAddressRadioChange = (event: RadioChangeEvent) => {
+    setAddress(event.target.value);
   };
 
-  const handleChangeCommonAdress = (uid: string, index: number) => {
+  const handleChangeCommonAddress = (uid: string, index: number) => {
     axios
-      .put(`/shop/adress/common`, {
+      .put(`/shop/address/common`, {
         uid,
         userUid: authStore.user.uid,
       })
       .then((res) => {
         message.success(res.data.msg);
-        let adressListCopy = adressList.slice();
-        adressListCopy.forEach((item, idx) => {
-          if (item.isCommon === 1) adressListCopy[idx].isCommon = 0;
+        let addressListCopy = addressList.slice();
+        addressListCopy.forEach((item, idx) => {
+          if (item.isCommon === 1) addressListCopy[idx].isCommon = 0;
         });
-        adressListCopy[index].isCommon = 1;
-        setAdressList(adressListCopy);
+        addressListCopy[index].isCommon = 1;
+        setAddressList(addressListCopy);
       })
       .catch((err) => {
         console.log(err);
@@ -81,26 +91,26 @@ const AuctionPage: React.FC = () => {
       });
   };
 
-  const handleAddNewAdress = (formValue: TAdress) => {
+  const handleAddNewaddress = (formValue: TAddress) => {
     if (formValue.isCommon === undefined) formValue.isCommon = false;
     axios
-      .post('/shop/adress', {
+      .post('/shop/address', {
         ...formValue,
         userUid: authStore.user.uid,
       })
       .then((res) => {
         console.log(res.data);
         if (!formValue.isCommon) {
-          const adressListCopy = [res.data.data, ...adressList];
-          setAdressList(adressListCopy);
+          const addressListCopy = [res.data.data, ...addressList];
+          setAddressList(addressListCopy);
         } else {
-          let adressListCopy = [res.data.data, ...adressList];
-          adressListCopy.forEach((item) => {
+          let addressListCopy = [res.data.data, ...addressList];
+          addressListCopy.forEach((item) => {
             if (item.isCommon == 1 && item.uid !== res.data.data.uid) {
               item.isCommon = 0;
             }
           });
-          setAdressList(adressListCopy);
+          setAddressList(addressListCopy);
         }
         message.success('添加地址成功');
       })
@@ -127,17 +137,17 @@ const AuctionPage: React.FC = () => {
     );
   };
 
-  const renderAdressList = () => {
-    if (adressList.length === 0) return <div>暂无地址信息</div>;
+  const renderaddressList = () => {
+    if (addressList.length === 0) return <div>暂无地址信息</div>;
     return (
       <div>
-        <Radio.Group onChange={handleOnAdressRadioChange} value={adress}>
+        <Radio.Group onChange={handleOnAddressRadioChange} value={address}>
           <Space direction="vertical">
-            {adressList.map((item, index) => {
+            {addressList.map((item, index) => {
               return (
                 <Radio value={item.uid} style={{ fontSize: 18 }} key={index}>
                   <Space size="middle">
-                    <span>{item.adress}</span>
+                    <span>{item.address}</span>
                     <strong>({item.name} 收)</strong>
                     <span>{item.phone}</span>
                     {item.isCommon == 1 && <div style={{ color: 'blue' }}>[默认地址]</div>}
@@ -145,7 +155,7 @@ const AuctionPage: React.FC = () => {
                       <div
                         className={styles.setCommon}
                         onClick={() => {
-                          handleChangeCommonAdress(item.uid!, index);
+                          handleChangeCommonAddress(item.uid!, index);
                         }}
                       >
                         设为默认地址
@@ -157,6 +167,32 @@ const AuctionPage: React.FC = () => {
             })}
           </Space>
         </Radio.Group>
+      </div>
+    );
+  };
+
+  const renderAuctionPanel = () => {
+    return (
+      <div className={styles.auction}>
+        <Row gutter={24}>
+          <Col span={3}>
+            <div>
+              共计 <strong>{shopStore.shopCount}</strong> 件
+            </div>
+          </Col>
+          <Col span={3}>
+            合计金额：<strong>{shopStore.shopSumPrice}</strong>
+          </Col>
+          <Col span={14}>
+            地址信息：
+            <strong>{addressInfo}</strong>
+          </Col>
+          <Col span={4}>
+            <Button type="primary" danger className={styles.res}>
+              立即下单
+            </Button>
+          </Col>
+        </Row>
       </div>
     );
   };
@@ -180,17 +216,17 @@ const AuctionPage: React.FC = () => {
                 return <ShopCarDetailCard {...props} />;
               })}
             </Card>
-            <Space className={styles.choseAdress} direction="horizontal" size="middle">
+            <Space className={styles.choseAddress} direction="horizontal" size="middle">
               {renderSecondaryTitle('选择收货地址')}
               <Button type="dashed" icon={<PlusOutlined />} onClick={() => setModalVisible(true)}>
                 添加新地址
               </Button>
             </Space>
-            <Card loading={loading}>{renderAdressList()}</Card>
+            <Card loading={loading}>{renderaddressList()}</Card>
           </div>
         </Card>
       </div>
-      <div className={styles.auction}>结算面板测试测试测试</div>
+      {renderAuctionPanel()}
       <Modal
         title="添加新地址"
         visible={modalVisible}
@@ -199,7 +235,7 @@ const AuctionPage: React.FC = () => {
         destroyOnClose
         onCancel={() => setModalVisible(false)}
       >
-        <Form wrapperCol={{ span: 24 }} onFinish={handleAddNewAdress}>
+        <Form wrapperCol={{ span: 24 }} onFinish={handleAddNewaddress}>
           <Form.Item label="设置默认地址" name="isCommon">
             <Switch checkedChildren="默认" unCheckedChildren="不默认" />
           </Form.Item>
@@ -226,7 +262,7 @@ const AuctionPage: React.FC = () => {
           </Row>
           <Form.Item
             label="地址"
-            name="adress"
+            name="address"
             wrapperCol={{ offset: 1 }}
             rules={[{ required: true, message: '地址信息不能为空' }]}
           >
