@@ -1,19 +1,10 @@
 import HourglassOutlined from '@ant-design/icons/lib/icons/HourglassOutlined';
-import {
-  Affix,
-  BackTop,
-  Badge,
-  Button,
-  Col,
-  Dropdown,
-  Menu,
-  message,
-  notification,
-  Row,
-} from 'antd';
+import { BackTop, Badge, Button, Col, Dropdown, Menu, notification, Row } from 'antd';
 import axios from 'axios';
 import { observer } from 'mobx-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useHistory } from 'react-router';
+import { shopStore } from '../../store/ShopStore/shopStore';
 import CommodityCard from './components/CommodityCard';
 import ShopCarDetailCard from './components/ShopCarDetailCard';
 import { TShop, TShopCar } from './interfaces';
@@ -24,6 +15,7 @@ const ShopPage: React.FC = () => {
   const [itemCount, setItemCount] = useState<number>(0);
   const [shopCarMenuList, setMenuList] = useState<TShopCar[]>();
   const [dropVisible, setDropVisible] = useState<boolean>(false);
+  const history = useHistory();
 
   useEffect(() => {
     //滚动条置顶
@@ -35,7 +27,11 @@ const ShopPage: React.FC = () => {
     });
 
     axios.get('/shop').then((res) => {
-      setShopList(res.data.data);
+      setShopList([...res.data.data?.filter((item: TShop) => {
+        return item.isDisabled === 0;
+      }).sort((a: TShop, b: TShop) => {
+        return b.id - a.id;
+      }) || []])
     });
   }, []);
 
@@ -78,7 +74,12 @@ const ShopPage: React.FC = () => {
           );
         })}
         <div className={styles.settlement}>
-          <Button type="primary" danger style={{ height: 50, width: '100%', fontSize: 24 }}>
+          <Button
+            type="primary"
+            style={{ height: 50, width: '100%', fontSize: 24 }}
+            onClick={handleGoAuction}
+            danger
+          >
             立即结算
           </Button>
         </div>
@@ -110,6 +111,11 @@ const ShopPage: React.FC = () => {
     } else {
       setMenuList([{ info: info![0], count: countCopy + 1 }]);
     }
+  };
+
+  const handleGoAuction = () => {
+    if (shopCarMenuList) shopStore.setShopList(shopCarMenuList);
+    history.push('/auction');
   };
 
   return (

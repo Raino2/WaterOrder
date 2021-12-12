@@ -1,4 +1,5 @@
 export type TShop = {
+  id: number;
   uid: string;
   name: string;
   price: number;
@@ -9,6 +10,7 @@ export type TShop = {
   like: number;
   rate: number;
   rateCount: number;
+  isDisabled: number;
 };
 
 export type TShopCar = {
