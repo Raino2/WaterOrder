@@ -11,9 +11,13 @@ class ShopStore {
   }
 
   @computed get shopCount(): number {
-    return this.shopList.reduce((now, pre) => {
-      return now + pre.count;
-    }, 0);
+    return Number(
+      this.shopList
+        .reduce((now, pre) => {
+          return now + pre.count;
+        }, 0)
+        .toFixed(2)
+    );
   }
 
   @action setShopList = (shop: TShopCar[]) => {

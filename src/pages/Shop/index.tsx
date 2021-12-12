@@ -2,7 +2,7 @@ import HourglassOutlined from '@ant-design/icons/lib/icons/HourglassOutlined';
 import { BackTop, Badge, Button, Col, Dropdown, Menu, notification, Row } from 'antd';
 import axios from 'axios';
 import { observer } from 'mobx-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import { shopStore } from '../../store/ShopStore/shopStore';
 import CommodityCard from './components/CommodityCard';
@@ -27,7 +27,11 @@ const ShopPage: React.FC = () => {
     });
 
     axios.get('/shop').then((res) => {
-      setShopList(res.data.data);
+      setShopList([...res.data.data?.filter((item: TShop) => {
+        return item.isDisabled === 0;
+      }).sort((a: TShop, b: TShop) => {
+        return b.id - a.id;
+      }) || []])
     });
   }, []);
 

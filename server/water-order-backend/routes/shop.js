@@ -6,5 +6,6 @@ router.get('/', ctrl.getProducts);
 router.get('/address', ctrl.getUserAddress);
 router.put('/address/common', ctrl.handleChangeCommonAddress);
 router.post('/address', ctrl.handleCreateNewAddress);
+router.post('/auction', ctrl.handleCreateOrder);
 
 module.exports = router;

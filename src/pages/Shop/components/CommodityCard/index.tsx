@@ -40,7 +40,7 @@ const CommodityCard: React.FC<TProps> = (props) => {
           </div>
           <Space className={styles.buyToolbar}>
             <Button type="primary" danger onClick={handleGoAuction}>
-              立即购买
+              立即订水
             </Button>
             <div style={{ fontSize: 50, color: 'orangered' }}>
               <ShoppingCartOutlined

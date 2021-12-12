@@ -8,7 +8,7 @@ const Shop = {
     SELECT *
     FROM PRODUCT
     `;
-    SQL.createSQL(sql, [], (err, data) => {
+    SQL.createSQL(sql, [], (_, data) => {
       res.json(200, {
         data,
         success: true,
@@ -24,7 +24,7 @@ const Shop = {
     WHERE USERUID = '${req.query.uid}'
     `;
 
-    SQL.createSQL(sql, [], (err, data) => {
+    SQL.createSQL(sql, [], (_, data) => {
       if (data) {
         res.json(200, {
           data,
@@ -110,6 +110,52 @@ const Shop = {
         });
       }
     });
+  },
+
+  /**创建订单 */
+  handleCreateOrder: (req, res) => {
+    const { createAt, userUid, sumPrice, count, address, productList } = req.body;
+    const uid = UUID.generateUUID();
+
+    const sqls = [
+      {
+        sql: `
+          INSERT INTO \`ORDER\` (UID,CREATEAT,USERUID,SUMPRICE,COUNT,ADDRESS)
+          VALUES (?,?,?,?,?,?);
+        `,
+        params: [uid, createAt, userUid, sumPrice, count, address],
+      },
+      ...productList.map((item) => {
+        return {
+          sql: `
+          INSERT INTO ORDER_DETAIL (ORDERUID,PRODUCTUID)
+          VALUES(?,?)
+        `,
+          params: [uid, item],
+        };
+      }),
+    ];
+
+    SQL.createTransaction(sqls)
+      .then(() => {
+        res.json(200, {
+          data: {
+            uid,
+            sumPrice,
+            count,
+            address,
+            createAt,
+            productList,
+          },
+          success: true,
+        });
+      })
+      .catch(() => {
+        res.json(401, {
+          err: '下单失败',
+          success: false,
+        });
+      });
   },
 };
 

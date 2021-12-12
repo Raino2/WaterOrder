@@ -15,7 +15,9 @@ import {
 } from 'antd';
 import axios from 'axios';
 import { observer } from 'mobx-react';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { authStore } from '../../store/AuthStore/authStore';
 import { shopStore } from '../../store/ShopStore/shopStore';
 import ShopCarDetailCard from '../Shop/components/ShopCarDetailCard';
@@ -28,6 +30,7 @@ const AuctionPage: React.FC = () => {
   const [address, setAddress] = useState<string>();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [addressInfo, setAddressInfo] = useState<string>();
+  const history = useHistory();
 
   useEffect(() => {
     const newInfo = addressList.filter((item) => {
@@ -54,6 +57,7 @@ const AuctionPage: React.FC = () => {
       .finally(() => {
         setLoading(false);
       });
+    console.log(shopStore.shopSumPrice);
   }, []);
 
   useEffect(() => {
@@ -117,6 +121,39 @@ const AuctionPage: React.FC = () => {
       .finally(() => {
         setModalVisible(false);
       });
+  };
+
+  //结算购物车
+  const handleCheckOut = () => {
+    const productList = shopStore.shopList.map((item) => {
+      return item.info.uid;
+    });
+    const userUid = authStore.user.uid;
+    const sumPrice = shopStore.shopSumPrice;
+    const count = shopStore.shopCount;
+    const createAt = moment().unix();
+    Modal.confirm({
+      title: '结算订单',
+      content: '确定下单？',
+      centered: true,
+      okText: '立即下单',
+      cancelText: '取消',
+      onOk: () => {
+        axios
+          .post('/shop/auction', {
+            userUid,
+            createAt,
+            sumPrice,
+            count,
+            address,
+            productList,
+          })
+          .then(() => {
+            message.success('下单成功');
+            history.push('/shop');
+          });
+      },
+    });
   };
 
   const renderCardTitle = () => {
@@ -188,7 +225,7 @@ const AuctionPage: React.FC = () => {
             <strong>{addressInfo}</strong>
           </Col>
           <Col span={4}>
-            <Button type="primary" danger className={styles.res}>
+            <Button type="primary" danger className={styles.res} onClick={handleCheckOut}>
               立即下单
             </Button>
           </Col>
