@@ -126,7 +126,11 @@ const AuctionPage: React.FC = () => {
   //结算购物车
   const handleCheckOut = () => {
     const productList = shopStore.shopList.map((item) => {
-      return item.info.uid;
+      return {
+        uuid: item.info.uid,
+        count: item.count,
+        sumPrice: Number((item.count * item.info.price).toFixed(2)),
+      };
     });
     const userUid = authStore.user.uid;
     const sumPrice = shopStore.shopSumPrice;
