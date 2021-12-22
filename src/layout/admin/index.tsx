@@ -1,26 +1,52 @@
-import { useHistory } from 'react-router';
-import ProLayout, { PageContainer } from '@ant-design/pro-layout';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import ProLayout from '@ant-design/pro-layout';
+import { useEffect, useMemo, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import { tokenStore } from '../../store/TokenStore/token';
+import AdminRouter, { route } from '../../public/AdminRouter';
 
 const AdminLayout: React.FC = () => {
+  const [pathname, setPathname] = useState<string>('/admin/welcome');
+  const history = useHistory();
+
+  //登录
+  useEffect(() => {
+    tokenStore.autoLoginWithToken();
+  }, []);
+
+  useMemo(() => {
+    const currentPath = window.location.pathname;
+    setPathname(currentPath);
+  }, []);
+
   return (
-    <div
-      style={{
-        height: '100vh',
+    <ProLayout
+      style={{ minHeight: '100vh' }}
+      route={route}
+      fixSiderbar
+      location={{
+        pathname,
+      }}
+      title="OWOS订水管理系统"
+      siderWidth={240}
+      contentStyle={{ margin: 0 }}
+      menuItemRender={(item, dom) => (
+        <a
+          onClick={() => {
+            setPathname(item.path || '/admin');
+          }}
+        >
+          <div style={{ fontSize: 16 }}>{dom}</div>
+        </a>
+      )}
+      onPageChange={(location) => {
+        history.push(location?.pathname!);
       }}
     >
-      <ProLayout
-        title="OWOS订水管理系统"
-        location={{
-          pathname: '/config/template/new',
-        }}
-        siderWidth={280}
-      >
-        <PageContainer content="欢迎使用后台管理系统">
-          <div>Welcome,OWOS网上订水系统后台</div>
-        </PageContainer>
-      </ProLayout>
-    </div>
+      <AdminRouter />
+    </ProLayout>
   );
 };
 
-export default AdminLayout;
+export default observer(AdminLayout);

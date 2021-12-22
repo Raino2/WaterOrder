@@ -155,6 +155,10 @@ const AuctionPage: React.FC = () => {
           .then(() => {
             message.success('下单成功');
             history.push('/shop');
+          })
+          .catch(() => {
+            message.error('下单失败，请重试');
+            history.push('/shop');
           });
       },
     });
@@ -186,7 +190,7 @@ const AuctionPage: React.FC = () => {
           <Space direction="vertical">
             {addressList.map((item, index) => {
               return (
-                <Radio value={item.uid} style={{ fontSize: 18 }} key={index}>
+                <Radio value={item.uid} style={{ fontSize: 18 }} key={item.uid}>
                   <Space size="middle">
                     <span>{item.address}</span>
                     <strong>({item.name} 收)</strong>
@@ -239,7 +243,7 @@ const AuctionPage: React.FC = () => {
   };
 
   return (
-    <div>
+    <div style={{ height: '100%', width: '100%' }}>
       <div className={styles.board}>
         <Card title={renderCardTitle()} className={styles.card}>
           <div className={styles.content}>
@@ -254,7 +258,7 @@ const AuctionPage: React.FC = () => {
                   inventory: item.info.inventory,
                   count: item.count,
                 };
-                return <ShopCarDetailCard {...props} />;
+                return <ShopCarDetailCard {...props} key={item.info.uid} />;
               })}
             </Card>
             <Space className={styles.choseAddress} direction="horizontal" size="middle">
