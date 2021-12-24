@@ -128,10 +128,10 @@ const Shop = {
       ...productList.map((item) => {
         return {
           sql: `
-          INSERT INTO ORDER_DETAIL (ORDERUID,PRODUCTUID)
-          VALUES(?,?)
+          INSERT INTO ORDER_DETAIL (ORDERUID,PRODUCTUID,COUNT,SUMPRICE)
+          VALUES(?,?,?,?)
         `,
-          params: [uid, item],
+          params: [uid, item.uuid, item.count, item.sumPrice],
         };
       }),
     ];
