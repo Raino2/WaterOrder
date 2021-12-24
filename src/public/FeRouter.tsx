@@ -1,4 +1,4 @@
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import React, { Suspense, lazy } from 'react';
 import { observer } from 'mobx-react';
 import { Spin } from 'antd';
@@ -15,12 +15,14 @@ const FeRouter = () => {
         <Spin size="large" tip="Loading..." style={{ display: 'block', margin: '0 auto' }} />
       }
     >
-      <Route exact path="/" component={LoginPage} />
-      <Route exact path="/login" component={LoginPage} />
-      <Route exact path="/home" component={HomePage} />
-      <Route exact path="/shop" component={ShopPage} />
-      <Route exact path="/auction" component={ActionPage} />
-      <Redirect from="/*" to="/" />
+      <Switch>
+        <Route exact path="/" component={LoginPage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/home" component={HomePage} />
+        <Route exact path="/shop" component={ShopPage} />
+        <Route exact path="/auction" component={ActionPage} />
+        <Redirect from="/*" to="/" />
+      </Switch>
     </Suspense>
   );
 };

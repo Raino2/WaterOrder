@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useMemo } from 'react';
 import {
   SmileOutlined,
   AreaChartOutlined,
@@ -8,67 +8,94 @@ import {
   SolutionOutlined,
   IdcardOutlined,
   CarOutlined,
-  AliwangwangOutlined,
+  SettingOutlined,
 } from '@ant-design/icons';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { Spin } from 'antd';
 
-const LoginPage = lazy(() => import('../pages/Login'));
-const Auction = lazy(() => import('../pages/Auction'));
+// const LoginPage = lazy(() => import('../pages/Login'));
+const ProductList = lazy(() => import('../pages/Admin/Product/List'));
 
-const route = {
-  path: '/',
+type TRoute = {
+  path: string;
+  name?: string;
+  icon?: React.ReactNode;
+  component?: React.ComponentType<any>;
+  hideInMenu?: boolean;
+  routes?: TRoute[];
+};
+
+const route: TRoute = {
+  path: '/admin',
   routes: [
     {
       path: '/admin/welcome',
-      name: '欢迎界面',
+      name: '欢迎',
       icon: <SmileOutlined style={{ fontSize: 20 }} />,
     },
     {
       path: '/admin/data',
-      name: '数据总览',
+      name: '数据',
       icon: <AreaChartOutlined style={{ fontSize: 20 }} />,
     },
     {
       path: '/admin/user',
-      name: '用户管理',
+      name: '用户',
       icon: <TeamOutlined style={{ fontSize: 20 }} />,
+      routes: [
+        {
+          path: '/admin/user/show',
+          name: '用户总览',
+          component: ProductList,
+        },
+      ],
     },
     {
       path: '/admin/product',
-      name: '产品管理',
+      name: '产品',
       icon: <ShoppingOutlined style={{ fontSize: 20 }} />,
       routes: [
         {
-          path: '/admin/product/list',
-          name: '列表页',
-          hideInMenu: false,
+          path: '/admin/product/show',
+          name: '产品总览',
         },
       ],
     },
     {
       path: '/admin/order',
-      name: '订单管理',
+      name: '订单',
       icon: <SolutionOutlined style={{ fontSize: 20 }} />,
-      component: <div>订单管理</div>,
+      routes: [
+        {
+          path: '/admin/order/show',
+          name: '订单总览',
+        },
+        {
+          path: '/admin/order/diliver',
+          name: '订单派发',
+        },
+      ],
     },
     {
       path: '/admin/dispatcher',
-      name: '配送管理',
+      name: '配送',
       icon: <IdcardOutlined style={{ fontSize: 20 }} />,
-      component: <div>送水工管理</div>,
     },
     {
       path: '/admin/region',
-      name: '地区管理',
+      name: '地区',
       icon: <CarOutlined style={{ fontSize: 20 }} />,
-      component: <div>配送地区管理</div>,
     },
     {
-      path: '/admin/account',
-      name: '管理账号',
-      icon: <AliwangwangOutlined style={{ fontSize: 20 }} />,
-      component: <div>管理员账号管理</div>,
+      path: '/admin/setting',
+      name: '设置',
+      icon: <SettingOutlined style={{ fontSize: 20 }} />,
+      routes: [
+        {
+          path: '/admin/account',
+          name: '管理账户',
+        },
+      ],
     },
   ],
 };
@@ -80,9 +107,10 @@ const AdminRouter = () => {
         <Spin size="large" tip="Loading..." style={{ display: 'block', margin: '0 auto' }} />
       }
     >
-      <Route exact path="/admin/welcome" component={LoginPage} />
-      <Route exact path="/admin/data" component={Auction} />
-      <Redirect from="/admin/*" to="/admin" />
+      <Switch>
+        <Route exact path={'/admin/product/show'} component={ProductList} />
+        <Redirect from="/admin/*" to="/admin" />
+      </Switch>
     </Suspense>
   );
 };

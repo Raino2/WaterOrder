@@ -1,6 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var proxy = require('http-proxy-middleware');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
@@ -10,6 +11,7 @@ var userRouter = require('./routes/user');
 var loginRouter = require('./routes/login');
 var registerRouter = require('./routes/register');
 var shopRouter = require('./routes/shop');
+var adminRouter = require('./routes/admin');
 
 var app = express();
 
@@ -21,7 +23,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 //路由使用
 app.use('/', indexRouter);
@@ -29,6 +31,7 @@ app.use('/user', userRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/shop', shopRouter);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -30,18 +30,17 @@ const AdminLayout: React.FC = () => {
       }}
       title="OWOS订水管理系统"
       siderWidth={240}
-      contentStyle={{ margin: 0 }}
       menuItemRender={(item, dom) => (
         <a
           onClick={() => {
             setPathname(item.path || '/admin');
           }}
         >
-          <div style={{ fontSize: 16 }}>{dom}</div>
+          <div>{dom}</div>
         </a>
       )}
       onPageChange={(location) => {
-        history.push(location?.pathname!);
+        history.push(location?.pathname || '/admin');
       }}
     >
       <AdminRouter />
