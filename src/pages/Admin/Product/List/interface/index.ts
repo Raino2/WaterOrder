@@ -3,7 +3,7 @@ export type TProduct = {
   uid: string;
   name: string;
   price: number;
-  isMPS: boolean;
+  isMPS: number;
   img: string;
   inventory: number;
   description: string;
