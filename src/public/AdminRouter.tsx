@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import React, { lazy, Suspense, useMemo } from 'react';
+import React, { lazy, Suspense } from 'react';
 import {
   SmileOutlined,
   AreaChartOutlined,
@@ -13,7 +13,6 @@ import {
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Spin } from 'antd';
 
-// const LoginPage = lazy(() => import('../pages/Login'));
 const ProductList = lazy(() => import('../pages/Admin/Product/List'));
 
 type TRoute = {
@@ -93,7 +92,7 @@ const route: TRoute = {
       routes: [
         {
           path: '/admin/account',
-          name: '管理账户',
+          name: '管理员账户',
         },
       ],
     },

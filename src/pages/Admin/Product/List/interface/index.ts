@@ -3,12 +3,12 @@ export type TProduct = {
   uid: string;
   name: string;
   price: number;
-  isMPS: boolean;
-  img: string;
+  isMPS: number;
+  img: string | any;
   inventory: number;
   description: string;
   like: number;
   rate: number;
   rateCount: number;
-  isDisabled: number;
-}
+  isDisabled: number | boolean;
+};

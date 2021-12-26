@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "-": "^0.0.1",
+    "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-form": "^1.46.0",
     "@ant-design/pro-layout": "^6.31.7",
     "@babel/core": "7.12.3",
