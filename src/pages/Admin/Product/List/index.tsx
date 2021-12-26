@@ -168,7 +168,8 @@ const ProductList: React.FC = () => {
   };
 
   const handleRemove = (uid: string) => {
-    message.info('暂不提供删除产品操作，如不不需要，可以下架产品');
+    message.info('暂不提供删除产品操作，可以选择【下架产品】');
+    //TODO:预留的删除产品接口
     // axios
     //   .delete('/admin/product', { params: { uid } })
     //   .then(() => {

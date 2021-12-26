@@ -81,17 +81,35 @@ const Shop = {
       SET ISCOMMON = 0
       WHERE ISCOMMON = 1 AND USERUID = '${userUid}';
 
-      INSERT INTO ADRESS (UID,ADDRESS,USERUID,NAME,PHONE,ISCOMMON)
+      INSERT INTO ADDRESS (UID,ADDRESS,USERUID,NAME,PHONE,ISCOMMON)
       VALUES (?,?,?,?,?,?);
     `;
     } else {
       sql = `
-      INSERT INTO ADRESS (UID,ADDRESS,USERUID,NAME,PHONE,ISCOMMON)
+      INSERT INTO ADDRESS (UID,ADDRESS,USERUID,NAME,PHONE,ISCOMMON)
       VALUES (?,?,?,?,?,?)
     `;
     }
-    SQL.createSQL(sql, [uid, address, userUid, name, phone, isCommon], (err, data) => {
-      if (data) {
+
+    const addSql = `
+    UPDATE USER_DETAIL
+    SET ADDRESSCOUNT = ADDRESSCOUNT+1
+    WHERE UID = ?
+    `;
+
+    const sqls = [
+      {
+        sql: sql,
+        params: [uid, address, userUid, name, phone, isCommon],
+      },
+      {
+        sql: addSql,
+        params: [userUid],
+      },
+    ];
+
+    SQL.createTransaction(sqls)
+      .then(() => {
         res.json(200, {
           data: {
             uid,
@@ -103,13 +121,34 @@ const Shop = {
           },
           success: true,
         });
-      } else {
+      })
+      .catch(() => {
         res.json(401, {
           err: '添加地址失败',
           success: false,
         });
-      }
-    });
+      });
+
+    // SQL.createSQL(sql, [uid, address, userUid, name, phone, isCommon], (err, data) => {
+    //   if (data) {
+    //     res.json(200, {
+    //       data: {
+    //         uid,
+    //         address,
+    //         userUid,
+    //         name,
+    //         phone,
+    //         isCommon,
+    //       },
+    //       success: true,
+    //     });
+    //   } else {
+    //     res.json(401, {
+    //       err: '添加地址失败',
+    //       success: false,
+    //     });
+    //   }
+    // });
   },
 
   /**创建订单 */

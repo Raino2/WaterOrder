@@ -14,6 +14,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { Spin } from 'antd';
 
 const ProductList = lazy(() => import('../pages/Admin/Product/List'));
+const UserShowList = lazy(() => import('../pages/Admin/User/show/List'));
 
 type TRoute = {
   path: string;
@@ -108,6 +109,7 @@ const AdminRouter = () => {
     >
       <Switch>
         <Route exact path={'/admin/product/show'} component={ProductList} />
+        <Route exact path={'/admin/user/show'} component={UserShowList} />
         <Redirect from="/admin/*" to="/admin" />
       </Switch>
     </Suspense>
