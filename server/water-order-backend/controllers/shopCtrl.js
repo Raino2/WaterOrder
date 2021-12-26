@@ -157,6 +157,30 @@ const Shop = {
         });
       });
   },
+
+  /**查询库存 */
+  handleCheckInventory: (req, res) => {
+    const { uid } = req;
+    const sql = `
+    SELECT INVENTORY
+    FROM PRODUCT
+    WHERE UID = ?
+    `;
+
+    SQL.createAsyncSQL(sql, [uid])
+      .then((data) => {
+        res.json(200, {
+          data: { inventory: data[0].inventory },
+          success: true,
+        });
+      })
+      .catch((err) => {
+        res.json(401, {
+          err,
+          success: false,
+        });
+      });
+  },
 };
 
 module.exports = Shop;
