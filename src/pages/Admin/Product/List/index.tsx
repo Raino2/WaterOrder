@@ -1,5 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { PageContainer } from '@ant-design/pro-layout';
-import { Alert, Button, Card, Rate, Space, Table, Tag } from 'antd';
+import { Alert, Button, Card, Divider, message, Popconfirm, Rate, Space, Table, Tag } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -17,7 +18,7 @@ const ProductList: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [productList, setList] = useState<TProduct[]>();
   const [productInfo, setInfo] = useState<TProductInfo>();
-  const [edit, setEdit] = useState<TProduct>();
+  const [edit, setEdit] = useState<TProduct | undefined>();
   const [visible, setVisible] = useState<boolean>(false);
 
   const colums: ColumnsType<TProduct> = [
@@ -96,13 +97,23 @@ const ProductList: React.FC = () => {
       title: '操作',
       key: 'action',
       fixed: 'right',
-      width: 80,
+      width: 120,
       align: 'center',
       render: (_, data) => {
         return (
-          <Button type="link" onClick={() => handleModify(data)}>
-            编辑
-          </Button>
+          <Space size="small">
+            <a onClick={() => handleModify(data)}>编辑</a>
+            <Divider type="vertical" />
+            <Popconfirm
+              title="您确定要删除这个产品吗？"
+              placement="topRight"
+              onConfirm={() => {
+                handleRemove(data.uid);
+              }}
+            >
+              <a type="link">删除</a>
+            </Popconfirm>
+          </Space>
         );
       },
     },
@@ -111,7 +122,7 @@ const ProductList: React.FC = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get('/admin')
+      .get('/admin/product')
       .then((res) => {
         setList(res.data.data);
       })
@@ -127,11 +138,15 @@ const ProductList: React.FC = () => {
       return item.isDisabled === 1;
     }).length;
     setInfo({ sum, open, close });
+    setEdit(undefined);
   }, [productList]);
 
-  const handleModify = (data?: TProduct) => {
-    console.log(data);
+  const handleCreate = () => {
+    setEdit(undefined);
+    setVisible(true);
+  };
 
+  const handleModify = (data: TProduct) => {
     setEdit(data);
     setVisible(true);
   };
@@ -140,11 +155,29 @@ const ProductList: React.FC = () => {
   const handleRefrash = () => {
     setLoading(true);
     axios
-      .get('/admin')
+      .get('/admin/product')
       .then((res) => {
         setList(res.data.data);
       })
       .finally(() => setLoading(false));
+  };
+
+  const handleCloseModal = () => {
+    setVisible(false);
+    setEdit(undefined);
+  };
+
+  const handleRemove = (uid: string) => {
+    message.info('暂不提供删除产品操作，如不不需要，可以下架产品');
+    // axios
+    //   .delete('/admin/product', { params: { uid } })
+    //   .then(() => {
+    //     message.success('删除成功');
+    //     handleRefrash();
+    //   })
+    //   .catch(() => {
+    //     message.error('删除失败');
+    //   });
   };
 
   return (
@@ -156,13 +189,25 @@ const ProductList: React.FC = () => {
             <Alert message={`上架商品：${productInfo?.open}`} type="success" showIcon />
             <Alert message={`下架商品：${productInfo?.close}`} type="error" showIcon />
           </Space>
-          <Button type="primary" danger onClick={() => handleModify(undefined)}>
+          <Button
+            type="primary"
+            danger
+            onClick={() => {
+              setEdit(undefined);
+              handleCreate();
+            }}
+          >
             添加新产品
           </Button>
         </div>
         <Table columns={colums} dataSource={productList} rowKey={'id'} />
       </Card>
-      <ProductEditModal visible={visible} onVisibleChange={setVisible} edit={edit} />
+      <ProductEditModal
+        visible={visible}
+        onVisibleChange={handleCloseModal}
+        edit={edit}
+        onFresh={handleRefrash}
+      />
     </PageContainer>
   );
 };

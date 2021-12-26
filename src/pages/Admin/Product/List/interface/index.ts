@@ -4,11 +4,11 @@ export type TProduct = {
   name: string;
   price: number;
   isMPS: number;
-  img: string;
+  img: string | any;
   inventory: number;
   description: string;
   like: number;
   rate: number;
   rateCount: number;
-  isDisabled: number;
-}
+  isDisabled: number | boolean;
+};
