@@ -52,6 +52,12 @@ const Shop = {
     SET ISCOMMON = 1
     WHERE USERUID = '${userUid}' AND UID = '${uid}';
 
+    UPDATE USER
+    SET ADDRESS = (SELECT ADDRESS
+      FROM ADDRESS
+      WHERE UID = '${uid}'
+      )
+    WHERE UID = '${userUid}'
     `;
 
     SQL.createSQL(sql, [], (err, data) => {
@@ -83,6 +89,10 @@ const Shop = {
 
       INSERT INTO ADDRESS (UID,ADDRESS,USERUID,NAME,PHONE,ISCOMMON)
       VALUES (?,?,?,?,?,?);
+
+      UPDATE USER
+      SET ADDRESS = '${address}'
+      WHERE UID = '${userUid}';
     `;
     } else {
       sql = `
