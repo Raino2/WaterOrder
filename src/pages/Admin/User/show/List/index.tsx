@@ -1,5 +1,19 @@
+import { SettingOutlined, UserOutlined } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
-import { Alert, Button, Card, Col, Form, Input, message, Modal, Row, Space, Table } from 'antd';
+import {
+  Alert,
+  Button,
+  Card,
+  Col,
+  Form,
+  Input,
+  message,
+  Modal,
+  Row,
+  Space,
+  Table,
+  Tag,
+} from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
@@ -21,6 +35,24 @@ const UserShowList: React.FC = () => {
       defaultSortOrder: 'ascend',
       sorter: (a, b) => {
         return b.id - a.id;
+      },
+    },
+    {
+      title: '是否管理员',
+      dataIndex: 'isAdmin',
+      width: 120,
+      render: (status) => {
+        if (status)
+          return (
+            <Tag color="gold" icon={<SettingOutlined />}>
+              管理员
+            </Tag>
+          );
+        return (
+          <Tag color="blue" icon={<UserOutlined />}>
+            仅用户
+          </Tag>
+        );
       },
     },
     {
