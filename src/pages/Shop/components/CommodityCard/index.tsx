@@ -46,7 +46,6 @@ const CommodityCard: React.FC<TProps> = (props) => {
               <ShoppingCartOutlined
                 onClick={() => {
                   props.onAdd(uid);
-                  message.success('加入购物车成功');
                 }}
               />
             </div>

@@ -1,8 +1,8 @@
 import HourglassOutlined from '@ant-design/icons/lib/icons/HourglassOutlined';
-import { BackTop, Badge, Button, Col, Dropdown, Menu, notification, Row } from 'antd';
+import { BackTop, Badge, Button, Col, Dropdown, Menu, message, notification, Row } from 'antd';
 import axios from 'axios';
 import { observer } from 'mobx-react';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { shopStore } from '../../store/ShopStore/shopStore';
 import CommodityCard from './components/CommodityCard';
@@ -27,11 +27,15 @@ const ShopPage: React.FC = () => {
     });
 
     axios.get('/shop').then((res) => {
-      setShopList([...res.data.data?.filter((item: TShop) => {
-        return item.isDisabled === 0;
-      }).sort((a: TShop, b: TShop) => {
-        return b.id - a.id;
-      }) || []])
+      setShopList([
+        ...(res.data.data
+          ?.filter((item: TShop) => {
+            return item.isDisabled === 0;
+          })
+          .sort((a: TShop, b: TShop) => {
+            return b.id - a.id;
+          }) || []),
+      ]);
     });
   }, []);
 
@@ -89,8 +93,6 @@ const ShopPage: React.FC = () => {
 
   //加入购物车
   const handleAddShopCarMenu = (uid: string) => {
-    setItemCount(itemCount + 1);
-
     const info = shopList?.filter((item) => {
       return item.uid === uid;
     });
@@ -107,10 +109,20 @@ const ShopPage: React.FC = () => {
         return item.info.uid !== uid;
       });
 
+      if (info![0].inventory < countCopy + 1) {
+        message.error('商品库存不足，加入购物车失败！');
+        return;
+      }
       setMenuList([...menuListCopy, { info: info![0], count: countCopy! + 1 }]);
     } else {
+      if (info![0].inventory < countCopy + 1) {
+        message.error('商品库存不足，加入购物车失败！');
+        return;
+      }
       setMenuList([{ info: info![0], count: countCopy + 1 }]);
     }
+    message.success('加入购物车成功');
+    setItemCount(itemCount + 1);
   };
 
   const handleGoAuction = () => {

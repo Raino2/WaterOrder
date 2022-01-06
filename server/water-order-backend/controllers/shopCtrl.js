@@ -171,18 +171,37 @@ const Shop = {
         sql: `
           INSERT INTO \`ORDER\` (UID,CREATEAT,USERUID,SUMPRICE,COUNT,ADDRESS)
           VALUES (?,?,?,?,?,?);
+
+          UPDATE USER_DETAIL
+          SET ORDERCOUNT = IFNULL(ORDERCOUNT,0)+1
+          WHERE UID = ?;
         `,
-        params: [uid, createAt, userUid, sumPrice, count, address],
+        params: [uid, createAt, userUid, sumPrice, count, address, userUid],
       },
       ...productList.map((item) => {
         return {
           sql: `
           INSERT INTO ORDER_DETAIL (ORDERUID,PRODUCTUID,COUNT,SUMPRICE)
-          VALUES(?,?,?,?)
+          VALUES(?,?,?,?);
+
+          UPDATE PRODUCT
+          SET INVENTORY = INVENTORY - ?
+          WHERE UID = ?;
         `,
-          params: [uid, item.uuid, item.count, item.sumPrice],
+          params: [uid, item.uuid, item.count, item.sumPrice, item.count, item.uuid],
         };
       }),
+      {
+        sql: `
+          UPDATE USER_DETAIL
+          SET ORDERCOUNT = (SELECT COUNT(*)
+            FROM \`ORDER\`
+            WHERE USERUID = '${userUid}'
+          )
+          WHERE UID = '${userUid}'; 
+        `,
+        params: [],
+      },
     ];
 
     SQL.createTransaction(sqls)
