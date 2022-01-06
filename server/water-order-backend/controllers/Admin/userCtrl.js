@@ -145,12 +145,12 @@ const user = {
   /** 更改用户信息(非管理员) **/
   handleModifyUser: (req, res) => {
     console.log('接收到更改用户信息请求');
-    const { uid, userPass, userRealName, phone, email, rate } = req.body;
+    const { uid, userName, userPass, userRealName, phone, email, rate } = req.body;
     let sql = `
     UPDATE USER
     SET UID = '${uid}'
     `;
-
+    if (userName) sql += `,USERNAME = '${userName}'`;
     if (userPass) sql += `,USERPASS = '${userPass}'`;
     if (userRealName) sql += `,USERREALNAME = '${userRealName}'`;
     if (phone) sql += `,PHONE = '${phone}'`;
@@ -161,8 +161,16 @@ const user = {
     sql += `
     UPDATE USER_DETAIL
     SET RATE = ${rate || 0}
-    WHERE UID = '${uid}'
+    WHERE UID = '${uid}';
     `;
+
+    if (userName)
+      sql += `
+    UPDATE USER_DETAIL
+    SET USERNAME = '${userName}'
+    WHERE UID = '${uid}';
+    `;
+
     SQL.createAsyncSQL(sql, [])
       .then((data) => {
         res.json(200, {
