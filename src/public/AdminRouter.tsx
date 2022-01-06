@@ -15,6 +15,7 @@ import { Spin } from 'antd';
 
 const ProductList = lazy(() => import('../pages/Admin/Product/List'));
 const UserShowList = lazy(() => import('../pages/Admin/User/show/List'));
+const UserShowInfo = lazy(() => import('../pages/Admin/User/show/Info'));
 
 type TRoute = {
   path: string;
@@ -110,6 +111,7 @@ const AdminRouter = () => {
       <Switch>
         <Route exact path={'/admin/product/show'} component={ProductList} />
         <Route exact path={'/admin/user/show'} component={UserShowList} />
+        <Route exact path={'/admin/user/show/info/:uuid'} component={UserShowInfo} />
         <Redirect from="/admin/*" to="/admin" />
       </Switch>
     </Suspense>

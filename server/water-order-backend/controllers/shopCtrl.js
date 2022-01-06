@@ -199,7 +199,7 @@ const Shop = {
 
   /**查询库存 */
   handleCheckInventory: (req, res) => {
-    const { uid } = req;
+    const { uid } = req.query;
     const sql = `
     SELECT INVENTORY
     FROM PRODUCT
