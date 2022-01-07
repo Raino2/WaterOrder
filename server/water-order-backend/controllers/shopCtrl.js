@@ -1,5 +1,6 @@
 const SQL = require('../utils/sql');
 const UUID = require('../utils/uuid');
+const ORDER = require('../constants/order');
 
 const Shop = {
   /**获取所有产品 */
@@ -169,14 +170,23 @@ const Shop = {
     const sqls = [
       {
         sql: `
-          INSERT INTO \`ORDER\` (UID,CREATEAT,USERUID,SUMPRICE,COUNT,ADDRESS)
-          VALUES (?,?,?,?,?,?);
+          INSERT INTO \`ORDER\` (UID,CREATEAT,USERUID,SUMPRICE,COUNT,ADDRESS,STATUS)
+          VALUES (?,?,?,?,?,?,?);
 
           UPDATE USER_DETAIL
           SET ORDERCOUNT = IFNULL(ORDERCOUNT,0)+1
           WHERE UID = ?;
         `,
-        params: [uid, createAt, userUid, sumPrice, count, address, userUid],
+        params: [
+          uid,
+          createAt,
+          userUid,
+          sumPrice,
+          count,
+          address,
+          ORDER.ORDER_STATUS.UNDISPATCH,
+          userUid,
+        ],
       },
       ...productList.map((item) => {
         return {
