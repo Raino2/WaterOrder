@@ -25,9 +25,9 @@ import { TAddress } from './interface';
 import styles from './styles/index.module.scss';
 
 const AuctionPage: React.FC = () => {
+  const [address, setAddress] = useState<string>();
   const [addressList, setAddressList] = useState<TAddress[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [address, setAddress] = useState<string>();
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [addressInfo, setAddressInfo] = useState<string>();
   const history = useHistory();
@@ -226,7 +226,7 @@ const AuctionPage: React.FC = () => {
             </div>
           </Col>
           <Col span={3}>
-            合计金额：<strong>{shopStore.shopSumPrice}</strong>
+            合计金额：<strong>{shopStore.shopSumPrice.toFixed(2)}</strong>
           </Col>
           <Col span={14}>
             地址信息：

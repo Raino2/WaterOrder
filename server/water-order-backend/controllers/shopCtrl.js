@@ -52,6 +52,12 @@ const Shop = {
     SET ISCOMMON = 1
     WHERE USERUID = '${userUid}' AND UID = '${uid}';
 
+    UPDATE USER
+    SET ADDRESS = (SELECT ADDRESS
+      FROM ADDRESS
+      WHERE UID = '${uid}'
+      )
+    WHERE UID = '${userUid}'
     `;
 
     SQL.createSQL(sql, [], (err, data) => {
@@ -81,17 +87,39 @@ const Shop = {
       SET ISCOMMON = 0
       WHERE ISCOMMON = 1 AND USERUID = '${userUid}';
 
-      INSERT INTO ADRESS (UID,ADDRESS,USERUID,NAME,PHONE,ISCOMMON)
+      INSERT INTO ADDRESS (UID,ADDRESS,USERUID,NAME,PHONE,ISCOMMON)
       VALUES (?,?,?,?,?,?);
+
+      UPDATE USER
+      SET ADDRESS = '${address}'
+      WHERE UID = '${userUid}';
     `;
     } else {
       sql = `
-      INSERT INTO ADRESS (UID,ADDRESS,USERUID,NAME,PHONE,ISCOMMON)
+      INSERT INTO ADDRESS (UID,ADDRESS,USERUID,NAME,PHONE,ISCOMMON)
       VALUES (?,?,?,?,?,?)
     `;
     }
-    SQL.createSQL(sql, [uid, address, userUid, name, phone, isCommon], (err, data) => {
-      if (data) {
+
+    const addSql = `
+    UPDATE USER_DETAIL
+    SET ADDRESSCOUNT = ADDRESSCOUNT+1
+    WHERE UID = ?
+    `;
+
+    const sqls = [
+      {
+        sql: sql,
+        params: [uid, address, userUid, name, phone, isCommon],
+      },
+      {
+        sql: addSql,
+        params: [userUid],
+      },
+    ];
+
+    SQL.createTransaction(sqls)
+      .then(() => {
         res.json(200, {
           data: {
             uid,
@@ -103,13 +131,34 @@ const Shop = {
           },
           success: true,
         });
-      } else {
+      })
+      .catch(() => {
         res.json(401, {
           err: '添加地址失败',
           success: false,
         });
-      }
-    });
+      });
+
+    // SQL.createSQL(sql, [uid, address, userUid, name, phone, isCommon], (err, data) => {
+    //   if (data) {
+    //     res.json(200, {
+    //       data: {
+    //         uid,
+    //         address,
+    //         userUid,
+    //         name,
+    //         phone,
+    //         isCommon,
+    //       },
+    //       success: true,
+    //     });
+    //   } else {
+    //     res.json(401, {
+    //       err: '添加地址失败',
+    //       success: false,
+    //     });
+    //   }
+    // });
   },
 
   /**创建订单 */
@@ -122,18 +171,37 @@ const Shop = {
         sql: `
           INSERT INTO \`ORDER\` (UID,CREATEAT,USERUID,SUMPRICE,COUNT,ADDRESS)
           VALUES (?,?,?,?,?,?);
+
+          UPDATE USER_DETAIL
+          SET ORDERCOUNT = IFNULL(ORDERCOUNT,0)+1
+          WHERE UID = ?;
         `,
-        params: [uid, createAt, userUid, sumPrice, count, address],
+        params: [uid, createAt, userUid, sumPrice, count, address, userUid],
       },
       ...productList.map((item) => {
         return {
           sql: `
           INSERT INTO ORDER_DETAIL (ORDERUID,PRODUCTUID,COUNT,SUMPRICE)
-          VALUES(?,?,?,?)
+          VALUES(?,?,?,?);
+
+          UPDATE PRODUCT
+          SET INVENTORY = INVENTORY - ?
+          WHERE UID = ?;
         `,
-          params: [uid, item.uuid, item.count, item.sumPrice],
+          params: [uid, item.uuid, item.count, item.sumPrice, item.count, item.uuid],
         };
       }),
+      {
+        sql: `
+          UPDATE USER_DETAIL
+          SET ORDERCOUNT = (SELECT COUNT(*)
+            FROM \`ORDER\`
+            WHERE USERUID = '${userUid}'
+          )
+          WHERE UID = '${userUid}'; 
+        `,
+        params: [],
+      },
     ];
 
     SQL.createTransaction(sqls)
@@ -160,7 +228,7 @@ const Shop = {
 
   /**查询库存 */
   handleCheckInventory: (req, res) => {
-    const { uid } = req;
+    const { uid } = req.query;
     const sql = `
     SELECT INVENTORY
     FROM PRODUCT
