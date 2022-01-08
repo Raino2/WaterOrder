@@ -13,6 +13,7 @@
     "http-errors": "~1.6.3",
     "http-proxy-middleware": "^2.0.1",
     "jade": "~1.11.0",
+    "lodash": "^4.17.21",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.15"

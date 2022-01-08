@@ -16,6 +16,7 @@ import { Spin } from 'antd';
 const ProductList = lazy(() => import('../pages/Admin/Product/List'));
 const UserShowList = lazy(() => import('../pages/Admin/User/show/List'));
 const UserShowInfo = lazy(() => import('../pages/Admin/User/show/Info'));
+const OrderShowList = lazy(() => import('../pages/Admin/Order/show/List'));
 
 type TRoute = {
   path: string;
@@ -68,8 +69,11 @@ const route: TRoute = {
       icon: <SolutionOutlined style={{ fontSize: 20 }} />,
       routes: [
         {
-          path: '/admin/order/show',
+          path: '/admin/order/show/list',
           name: '订单总览',
+        },
+        {
+          path: '/admin/order/show/info',
         },
         {
           path: '/admin/order/diliver',
@@ -112,6 +116,7 @@ const AdminRouter = () => {
         <Route exact path={'/admin/product/show'} component={ProductList} />
         <Route exact path={'/admin/user/show'} component={UserShowList} />
         <Route exact path={'/admin/user/show/info/:uuid'} component={UserShowInfo} />
+        <Route exact path={'/admin/order/show/list'} component={OrderShowList} />
         <Redirect from="/admin/*" to="/admin" />
       </Switch>
     </Suspense>
