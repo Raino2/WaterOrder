@@ -17,6 +17,7 @@ const ProductList = lazy(() => import('../pages/Admin/Product/List'));
 const UserShowList = lazy(() => import('../pages/Admin/User/show/List'));
 const UserShowInfo = lazy(() => import('../pages/Admin/User/show/Info'));
 const OrderShowList = lazy(() => import('../pages/Admin/Order/show/List'));
+const OrderShowInfo = lazy(() => import('../pages/Admin/Order/show/Info'));
 
 type TRoute = {
   path: string;
@@ -117,6 +118,7 @@ const AdminRouter = () => {
         <Route exact path={'/admin/user/show'} component={UserShowList} />
         <Route exact path={'/admin/user/show/info/:uuid'} component={UserShowInfo} />
         <Route exact path={'/admin/order/show/list'} component={OrderShowList} />
+        <Route exact path={'/admin/order/show/info/:uuid'} component={OrderShowInfo} />
         <Redirect from="/admin/*" to="/admin" />
       </Switch>
     </Suspense>

@@ -18,5 +18,7 @@ router.get('/user/info', userCtrl.handleGetUserInfo);
 router.patch('/user/admin', userCtrl.handleSetAdmin);
 
 /** 订单 **/
-router.get('/order', orderCtrl.handleGetAllOrder);
+router.get('/order/:uuid?', orderCtrl.handleGetOrder);
+router.get('/order-detail', orderCtrl.handleGetOrderDetail);
+
 module.exports = router;

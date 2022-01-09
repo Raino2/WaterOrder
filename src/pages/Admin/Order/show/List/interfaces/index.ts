@@ -1,3 +1,5 @@
+import { TProduct } from '../../../../Product/List/interface';
+
 export type TOrder = {
   id: number;
   uid: string;
@@ -20,6 +22,8 @@ export type TOrderDetail = {
   count: number;
   sumPrice: number;
 };
+
+export type TOrderProduct = TOrderDetail & TProduct;
 
 export enum ORDER_STATUS {
   UNDISPATCH = 0, //未派发

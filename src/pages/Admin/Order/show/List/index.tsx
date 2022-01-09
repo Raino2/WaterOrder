@@ -1,9 +1,11 @@
+import { MehTwoTone } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Alert, Button, Card, Space, Table, Tag } from 'antd';
 import { ColumnsType } from 'antd/lib/table';
 import axios from 'axios';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { ORDER_STATUS, TOrder, TStatusList } from './interfaces';
 import styles from './styles/index.module.scss';
 
@@ -11,6 +13,7 @@ const OrderShowList: React.FC = () => {
   const [loading, setLoading] = useState<boolean>();
   const [orderList, setOrderList] = useState<TOrder[]>();
   const [statusList, setStatusList] = useState<TStatusList>();
+  const history = useHistory();
 
   useEffect(() => {
     setLoading(true);
@@ -107,7 +110,13 @@ const OrderShowList: React.FC = () => {
       title: '配送员',
       dataIndex: 'dispatcher',
       render: (peo) => {
-        if (!peo) return '暂无配送人员';
+        if (!peo)
+          return (
+            <Space>
+              <MehTwoTone twoToneColor="red" />
+              暂无配送人员
+            </Space>
+          );
         return peo;
       },
     },
@@ -116,7 +125,13 @@ const OrderShowList: React.FC = () => {
       dataIndex: 'dispatcherFee',
       width: 150,
       render: (fee) => {
-        if (!fee) return '暂无配送信息';
+        if (!fee)
+          return (
+            <Space>
+              <MehTwoTone twoToneColor="red" />
+              暂无配送信息
+            </Space>
+          );
         return fee;
       },
     },
@@ -125,11 +140,17 @@ const OrderShowList: React.FC = () => {
       key: 'action',
       fixed: 'right',
       width: 100,
-      render: () => {
+      render: (_, data) => {
         return (
           <Space direction="vertical">
             <a onClick={() => {}}>订单派发</a>
-            <a onClick={() => {}}>查看详情</a>
+            <a
+              onClick={() => {
+                history.push(`/admin/order/show/info/${data.uid}`);
+              }}
+            >
+              查看详情
+            </a>
           </Space>
         );
       },
