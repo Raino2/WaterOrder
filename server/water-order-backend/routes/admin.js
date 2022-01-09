@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const productCtrl = require('../controllers/Admin/productCtrl');
 const userCtrl = require('../controllers/Admin/userCtrl');
+const orderCtrl = require('../controllers/Admin/orderCtrl');
 
 /** 产品 **/
 router.get('/product', productCtrl.handleGetProducts);
@@ -15,5 +16,9 @@ router.post('/user', userCtrl.handleCreateNewUser);
 router.put('/user', userCtrl.handleModifyUser);
 router.get('/user/info', userCtrl.handleGetUserInfo);
 router.patch('/user/admin', userCtrl.handleSetAdmin);
+
+/** 订单 **/
+router.get('/order/:uuid?', orderCtrl.handleGetOrder);
+router.get('/order-detail', orderCtrl.handleGetOrderDetail);
 
 module.exports = router;

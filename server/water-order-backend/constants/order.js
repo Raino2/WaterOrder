@@ -1,9 +1,8 @@
 const ORDER_STATUS = {
   UNDISPATCH: 0, //未派发
   DISPATCH: 1, //已派发
-  UNDELIVERED: 2, //未配送
-  DELIVERED: 3, //已配送
-  END: 4, //已完结
+  DELIVERING: 2, //配送中
+  DONE: 3, //已完成
 };
 
 module.exports = {

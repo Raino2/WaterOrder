@@ -104,7 +104,7 @@ const Shop = {
 
     const addSql = `
     UPDATE USER_DETAIL
-    SET ADDRESSCOUNT = ADDRESSCOUNT+1
+    SET ADDRESSCOUNT = IFNULL(ADDRESSCOUNT,0)+1
     WHERE UID = ?
     `;
 
