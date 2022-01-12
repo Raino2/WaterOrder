@@ -14,10 +14,14 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { Spin } from 'antd';
 
 const ProductList = lazy(() => import('../pages/Admin/Product/List'));
+
 const UserShowList = lazy(() => import('../pages/Admin/User/show/List'));
 const UserShowInfo = lazy(() => import('../pages/Admin/User/show/Info'));
+
 const OrderShowList = lazy(() => import('../pages/Admin/Order/show/List'));
 const OrderShowInfo = lazy(() => import('../pages/Admin/Order/show/Info'));
+
+const RegionShowList = lazy(() => import('../pages/Admin/Region/show/List'));
 
 type TRoute = {
   path: string;
@@ -91,6 +95,12 @@ const route: TRoute = {
       path: '/admin/region',
       name: '地区',
       icon: <CarOutlined style={{ fontSize: 20 }} />,
+      routes: [
+        {
+          path: '/admin/region/show/list',
+          name: '地区总览',
+        },
+      ],
     },
     {
       path: '/admin/setting',
@@ -119,6 +129,7 @@ const AdminRouter = () => {
         <Route exact path={'/admin/user/show/info/:uuid'} component={UserShowInfo} />
         <Route exact path={'/admin/order/show/list'} component={OrderShowList} />
         <Route exact path={'/admin/order/show/info/:uuid'} component={OrderShowInfo} />
+        <Route exact path={'/admin/region/show/list'} component={RegionShowList} />
         <Redirect from="/admin/*" to="/admin" />
       </Switch>
     </Suspense>
