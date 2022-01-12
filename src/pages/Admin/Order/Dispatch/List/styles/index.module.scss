@@ -1,0 +1,43 @@
+.body {
+  background-color: #e6fffb;
+  height: 89vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .box {
+    width: 800px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 180px;
+
+    .title {
+      margin: 0;
+      font-size: 40px;
+      font-weight: 800;
+      font-family: '黑体';
+      color: #10239e;
+    }
+
+    .search {
+      width: 100%;
+      margin-top: 16px;
+      display: flex;
+      justify-content: space-between;
+
+      .searchInput {
+        height: 60px;
+        border-radius: 16px 0 0 16px;
+      }
+
+      .searchButton {
+        height: 100%;
+        font-size: 24px;
+        border-radius: 0 16px 16px 0;
+      }
+    }
+  }
+}
