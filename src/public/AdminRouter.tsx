@@ -23,6 +23,8 @@ const OrderShowInfo = lazy(() => import('../pages/Admin/Order/show/Info'));
 
 const RegionShowList = lazy(() => import('../pages/Admin/Region/show/List'));
 
+const DispatcherManageList = lazy(() => import('../pages/Admin/Dispatch/DispatcherManage/List'));
+
 type TRoute = {
   path: string;
   name?: string;
@@ -87,9 +89,15 @@ const route: TRoute = {
       ],
     },
     {
-      path: '/admin/dispatcher',
+      path: '/admin/dispatch',
       name: '配送',
       icon: <IdcardOutlined style={{ fontSize: 20 }} />,
+      routes: [
+        {
+          path: '/admin/dispatch/dispatcher/list',
+          name: '配送员总览',
+        },
+      ],
     },
     {
       path: '/admin/region',
@@ -130,6 +138,7 @@ const AdminRouter = () => {
         <Route exact path={'/admin/order/show/list'} component={OrderShowList} />
         <Route exact path={'/admin/order/show/info/:uuid'} component={OrderShowInfo} />
         <Route exact path={'/admin/region/show/list'} component={RegionShowList} />
+        <Route exact path={'/admin/dispatch/dispatcher/list'} component={DispatcherManageList} />
         <Redirect from="/admin/*" to="/admin" />
       </Switch>
     </Suspense>
