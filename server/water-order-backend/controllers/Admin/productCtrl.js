@@ -22,12 +22,12 @@ const product = {
       fs.rename(file.file.filepath, form.uploadDir + `\\${file.file.originalFilename}`, (err) => {
         if (err)
           res.json(200, {
-            data: `images/products/${file.file.originalFilename}`,
+            data: `images/products/${file.file.newFilename}`,
             success: true,
           });
         else
           res.json(200, {
-            data: `images/products/${file.file.newFilename}`,
+            data: `images/products/${file.file.originalFilename}`,
             success: true,
           });
       });

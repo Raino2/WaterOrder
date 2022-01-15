@@ -55,6 +55,19 @@ const ProductEditModal: React.FC<TProductEditModalProps> = (props) => {
         }
       : { ...values };
 
+    if (values.img && values.img.file && values.img.file !== {} && values.img.file.originFileObj) {
+      var reader = new FormData();
+      reader.append('file', values.img.file.originFileObj);
+      axios
+        .post('/admin/product/upload-img', reader)
+        .then(() => {
+          message.success('图片上传成功');
+        })
+        .catch(() => {
+          message.error('图片上传失败');
+        });
+    }
+
     axios[edit ? 'put' : 'post'](
       '/admin/product',
       edit ? { ...valueCopy, uid: edit.uid } : valueCopy
@@ -68,19 +81,6 @@ const ProductEditModal: React.FC<TProductEditModalProps> = (props) => {
       .catch(() => {
         message.error(edit ? '编辑失败' : '添加失败');
       });
-
-    if (values.img && values.img.file && values.img.file !== {} && values.img.file.originFileObj) {
-      var reader = new FormData();
-      reader.append('file', values.img.file.originFileObj);
-      axios
-        .post('/admin/product/upload-img', reader)
-        .then(() => {
-          message.success('图片上传成功');
-        })
-        .catch(() => {
-          message.error('图片上传失败');
-        });
-    }
   };
 
   return (
@@ -129,14 +129,7 @@ const ProductEditModal: React.FC<TProductEditModalProps> = (props) => {
           <InputNumber style={{ width: '100%' }} />
         </Item>
         <Item name="img" label="预览图" valuePropName="defaultFileList">
-          <Upload
-            action={'/upload/temp'}
-            maxCount={1}
-            onChange={(file) => {
-              console.log(file);
-            }}
-            listType="picture-card"
-          >
+          <Upload action={'/upload/temp'} maxCount={1} listType="picture-card">
             <UploadOutlined />
             <div className="ant-upload-text">上传预览图</div>
           </Upload>
