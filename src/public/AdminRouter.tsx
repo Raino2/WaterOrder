@@ -14,11 +14,17 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { Spin } from 'antd';
 
 const ProductList = lazy(() => import('../pages/Admin/Product/List'));
+
 const UserShowList = lazy(() => import('../pages/Admin/User/show/List'));
 const UserShowInfo = lazy(() => import('../pages/Admin/User/show/Info'));
+
 const OrderShowList = lazy(() => import('../pages/Admin/Order/show/List'));
 const OrderShowInfo = lazy(() => import('../pages/Admin/Order/show/Info'));
 const OrderDispatchList = lazy(() => import('../pages/Admin/Order/Dispatch/List'));
+
+const RegionShowList = lazy(() => import('../pages/Admin/Region/show/List'));
+
+const DispatcherManageList = lazy(() => import('../pages/Admin/Dispatch/DispatcherManage/List'));
 
 type TRoute = {
   path: string;
@@ -87,14 +93,26 @@ const route: TRoute = {
       ],
     },
     {
-      path: '/admin/diliver',
+      path: '/admin/dispatch',
       name: '配送',
       icon: <IdcardOutlined style={{ fontSize: 20 }} />,
+      routes: [
+        {
+          path: '/admin/dispatch/dispatcher/list',
+          name: '配送员总览',
+        },
+      ],
     },
     {
       path: '/admin/region',
       name: '地区',
       icon: <CarOutlined style={{ fontSize: 20 }} />,
+      routes: [
+        {
+          path: '/admin/region/show/list',
+          name: '地区总览',
+        },
+      ],
     },
     {
       path: '/admin/setting',
@@ -123,7 +141,8 @@ const AdminRouter = () => {
         <Route exact path={'/admin/user/show/info/:uuid'} component={UserShowInfo} />
         <Route exact path={'/admin/order/show/list'} component={OrderShowList} />
         <Route exact path={'/admin/order/show/info/:uuid'} component={OrderShowInfo} />
-        <Route exact path={'/admin/order/dispatch'} component={OrderDispatchList} />
+        <Route exact path={'/admin/region/show/list'} component={RegionShowList} />
+        <Route exact path={'/admin/dispatch/dispatcher/list'} component={DispatcherManageList} />
         <Redirect from="/admin/*" to="/admin" />
       </Switch>
     </Suspense>
