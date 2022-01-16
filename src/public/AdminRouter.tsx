@@ -141,6 +141,7 @@ const AdminRouter = () => {
         <Route exact path={'/admin/user/show/info/:uuid'} component={UserShowInfo} />
         <Route exact path={'/admin/order/show/list'} component={OrderShowList} />
         <Route exact path={'/admin/order/show/info/:uuid'} component={OrderShowInfo} />
+        <Route exact path={'/admin/order/dispatch'} component={OrderDispatchList} />
         <Route exact path={'/admin/region/show/list'} component={RegionShowList} />
         <Route exact path={'/admin/dispatch/dispatcher/list'} component={DispatcherManageList} />
         <Redirect from="/admin/*" to="/admin" />
