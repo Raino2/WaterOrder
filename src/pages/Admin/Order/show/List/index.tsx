@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { MehTwoTone } from '@ant-design/icons';
 import { PageContainer } from '@ant-design/pro-layout';
 import { Alert, Card, Space, Table, Tag } from 'antd';
@@ -108,7 +109,7 @@ const OrderShowList: React.FC = () => {
     },
     {
       title: '配送员',
-      dataIndex: 'dispatcher',
+      dataIndex: 'dispatcherName',
       render: (peo) => {
         if (!peo)
           return (
@@ -124,15 +125,15 @@ const OrderShowList: React.FC = () => {
       title: '配送费',
       dataIndex: 'dispatcherFee',
       width: 150,
-      render: (fee) => {
-        if (!fee)
+      render: (fee, data) => {
+        if (!data.dispatcher)
           return (
             <Space>
               <MehTwoTone twoToneColor="red" />
               暂无配送信息
             </Space>
           );
-        return fee;
+        return `￥${fee || 0}`;
       },
     },
     {
@@ -143,7 +144,13 @@ const OrderShowList: React.FC = () => {
       render: (_, data) => {
         return (
           <Space direction="vertical">
-            <a onClick={() => {}}>订单派发</a>
+            <a
+              onClick={() => {
+                history.push(`/admin/order/dispatch/info/${data.uid}`);
+              }}
+            >
+              订单派发
+            </a>
             <a
               onClick={() => {
                 history.push(`/admin/order/show/info/${data.uid}`);
@@ -168,7 +175,7 @@ const OrderShowList: React.FC = () => {
             <Alert message={`已完成的订单数：${statusList?.done}`} type="success" />
           </Space>
         </div>
-        <Table columns={columns} dataSource={orderList} />
+        <Table columns={columns} dataSource={orderList} rowKey={(row) => row.uid} />
       </Card>
     </PageContainer>
   );

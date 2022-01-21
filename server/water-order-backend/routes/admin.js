@@ -4,7 +4,7 @@ const productCtrl = require('../controllers/Admin/productCtrl');
 const userCtrl = require('../controllers/Admin/userCtrl');
 const orderCtrl = require('../controllers/Admin/orderCtrl');
 const regionCtrl = require('../controllers/Admin/regionCtrl');
-const dispatcherCtrl = require('../controllers/Admin/dispatchCtrl');
+const dispatchCtrl = require('../controllers/Admin/dispatchCtrl');
 
 /** 产品 **/
 router.get('/product', productCtrl.handleGetProducts);
@@ -30,10 +30,17 @@ router.put('/region', regionCtrl.handleModifyRegion);
 router.delete('/region', regionCtrl.handleDeleteRegion);
 
 /** 配送 **/
-router.get('/dispatch/dispatcher', dispatcherCtrl.handleGetDispatchers);
-router.get('/dispatch/dispatcher/detail', dispatcherCtrl.handleGetDispatcher);
-router.post('/dispatch/dispatcher', dispatcherCtrl.handleCreateDispatcher);
-router.put('/dispatch/dispatcher', dispatcherCtrl.handleModifyDispatcher);
-router.delete('/dispatch/dispatcher', dispatcherCtrl.handleDeleteDispatcher);
+router.get('/dispatch', dispatchCtrl.handleGetDispatch);
+router.post('/dispatch', dispatchCtrl.handleCreateDispatch);
+router.post('/dispatch/start', dispatchCtrl.handleStartDispatch);
+router.post('/dispatch/end', dispatchCtrl.handleEndDispatch);
+router.get('/dispatch/info', dispatchCtrl.handleGetDispatchInfo);
+router.get('/dispatch/order', dispatchCtrl.handleGetDispatchOrderInfo);
+router.get('/dispatch/address', dispatchCtrl.handleGetDispatchAddressInfo);
+router.get('/dispatch/dispatcher', dispatchCtrl.handleGetDispatchers);
+router.get('/dispatch/dispatcher/detail', dispatchCtrl.handleGetDispatcher);
+router.post('/dispatch/dispatcher', dispatchCtrl.handleCreateDispatcher);
+router.put('/dispatch/dispatcher', dispatchCtrl.handleModifyDispatcher);
+router.delete('/dispatch/dispatcher', dispatchCtrl.handleDeleteDispatcher);
 
 module.exports = router;

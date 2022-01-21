@@ -7,4 +7,5 @@ export type TUser = {
   address?: string;
   uid?: string;
   userPass?: string;
+  isAdmin: boolean;
 };

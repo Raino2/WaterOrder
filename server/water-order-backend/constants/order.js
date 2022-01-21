@@ -5,6 +5,4 @@ const ORDER_STATUS = {
   DONE: 3, //已完成
 };
 
-module.exports = {
-  ORDER_STATUS,
-};
+module.exports = ORDER_STATUS;

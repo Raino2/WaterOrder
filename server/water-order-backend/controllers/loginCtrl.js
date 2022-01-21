@@ -29,6 +29,38 @@ const login = {
       }
     });
   },
+
+  /** 查询用户是否为管理员 */
+  checkAdmin: (req, res) => {
+    const { uid } = req.query;
+
+    const sql = `
+    SELECT ISADMIN
+    FROM USER_DETAIL
+    WHERE UID = ?
+    `;
+
+    SQL.createAsyncSQL(sql, [uid])
+      .then((data) => {
+        if (data && data.length && data[0].ISADMIN) {
+          res.json(200, {
+            data: '用户为管理员',
+            success: true,
+          });
+        } else {
+          res.json(401, {
+            err: '普通用户',
+            success: false,
+          });
+        }
+      })
+      .catch(() => {
+        res.json(401, {
+          err: '普通用户',
+          success: false,
+        });
+      });
+  },
 };
 
 module.exports = login;

@@ -1,0 +1,95 @@
+.body {
+  height: 89.5vh;
+  background: rgb(230, 255, 251);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  :global .ant-card-body {
+    padding: 0;
+  }
+
+  .card {
+    width: 1100px;
+    height: 700px;
+    background: rgb(24, 144, 255);
+    border-radius: 10px;
+    border: 2px dashed rgba(0, 0, 0, 0.03);
+    color: #fff;
+
+    .cardBody {
+      display: flex;
+      justify-content: space-between;
+      height: calc(700px - 57px);
+
+      .left {
+        width: 420px;
+        height: 100%;
+
+        .pic {
+          height: 420px;
+          background-color: yellowgreen;
+        }
+
+        .description {
+          height: 219px;
+          border-radius: 0 0 0 10px;
+          width: 100%;
+          background-color: rgb(53, 53, 89);
+          padding: 24px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          font-size: 16px;
+          padding: 0 100px;
+
+          .region {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+
+      .right {
+        width: 690px;
+        background-color: #fff;
+        color: #000;
+        font-size: 18px;
+        border-radius: 0 0 10px 0;
+        height: calc(100% - 4px);
+        padding: 24px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+
+        .infoTitle {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+          width: 100%;
+          text-align: center;
+          font-size: 24px;
+        }
+
+        .dispatchInfo {
+          width: 100%;
+          height: 80%;
+          color: rgba(0, 0, 0, 0.65);
+          font-weight: 700;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          padding: 0 24px;
+        }
+
+        .status {
+          padding-top: 30px;
+          width: 100%;
+          height: 20%;
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

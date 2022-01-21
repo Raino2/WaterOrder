@@ -1,17 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Avatar, Divider, Space } from 'antd';
+import { Avatar, Divider, Space, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import styles from '../styles/index.module.scss';
-import { UserOutlined } from '@ant-design/icons';
+import { SettingOutlined, UserOutlined } from '@ant-design/icons';
 import LoginModal from '../../LoginModal';
 import { authStore } from '../../../store/AuthStore/authStore';
 import { observer } from 'mobx-react';
 import RegisterModal from '../../RegisterModal';
 import { tokenStore } from '../../../store/TokenStore/token';
+import { useHistory } from 'react-router';
 
 const IndexAvatar = () => {
   const [visible, setVisible] = useState<boolean>(false);
   const [resgister, setRegister] = useState<boolean>(false);
+  const history = useHistory();
 
   const loginLink = () => {
     if (authStore.isLogin)
@@ -48,6 +50,11 @@ const IndexAvatar = () => {
       <Space className={styles.avatar} size={20}>
         <div>{loginLink()}</div>
         <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+        {authStore.user.isAdmin && (
+          <Tooltip placement="bottom" title="点击进入管理员后台">
+            <SettingOutlined onClick={() => history.push('/admin')} />
+          </Tooltip>
+        )}
       </Space>
       <LoginModal
         visible={visible}

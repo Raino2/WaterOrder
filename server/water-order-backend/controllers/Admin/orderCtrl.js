@@ -25,10 +25,16 @@ const order = {
             address: addressInfo,
           };
         });
-        res.json(200, {
-          data: currentOrderList,
-          success: true,
-        });
+        if (currentOrderList && currentOrderList.length)
+          res.json(200, {
+            data: currentOrderList,
+            success: true,
+          });
+        else
+          res.json(401, {
+            err: '未找到订单',
+            success: false,
+          });
       })
       .catch((err) => {
         res.json(401, {
