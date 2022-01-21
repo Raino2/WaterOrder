@@ -1,6 +1,6 @@
 const SQL = require('../utils/sql');
 const UUID = require('../utils/uuid');
-const ORDER = require('../constants/order');
+const ORDER_STATUS = require('../constants/order');
 
 const Shop = {
   /**获取所有产品 */
@@ -184,7 +184,7 @@ const Shop = {
           sumPrice,
           count,
           address,
-          ORDER.ORDER_STATUS.UNDISPATCH,
+          ORDER_STATUS.UNDISPATCH,
           userUid,
         ],
       },

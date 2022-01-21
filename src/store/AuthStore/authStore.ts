@@ -11,7 +11,7 @@ class AuthStore {
   }
 
   @observable isLogin: boolean = false;
-  @observable user: TUser = {};
+  @observable user: TUser = { isAdmin: false };
   @observable isRemenber: boolean = false;
   @observable userRate?: number | undefined;
 
@@ -49,6 +49,10 @@ class AuthStore {
 
   @action setNoRemenber = () => {
     this.isRemenber = false;
+  };
+
+  @action setAdmin = () => {
+    this.user.isAdmin = true;
   };
 }
 

@@ -21,6 +21,7 @@ const UserShowInfo = lazy(() => import('../pages/Admin/User/show/Info'));
 const OrderShowList = lazy(() => import('../pages/Admin/Order/show/List'));
 const OrderShowInfo = lazy(() => import('../pages/Admin/Order/show/Info'));
 const OrderDispatchList = lazy(() => import('../pages/Admin/Order/Dispatch/List'));
+const OrderDispatchInfo = lazy(() => import('../pages/Admin/Order/Dispatch/Info'));
 
 const RegionShowList = lazy(() => import('../pages/Admin/Region/show/List'));
 
@@ -86,9 +87,11 @@ const route: TRoute = {
         {
           path: '/admin/order/dispatch',
           name: '订单派发',
-        },
-        {
-          path: '/admin/order/dispatch/info',
+          routes: [
+            {
+              path: '/admin/order/dispatch/info/:uuid',
+            },
+          ],
         },
       ],
     },
@@ -142,6 +145,7 @@ const AdminRouter = () => {
         <Route exact path={'/admin/order/show/list'} component={OrderShowList} />
         <Route exact path={'/admin/order/show/info/:uuid'} component={OrderShowInfo} />
         <Route exact path={'/admin/order/dispatch'} component={OrderDispatchList} />
+        <Route exact path={'/admin/order/dispatch/info/:uuid'} component={OrderDispatchInfo} />
         <Route exact path={'/admin/region/show/list'} component={RegionShowList} />
         <Route exact path={'/admin/dispatch/dispatcher/list'} component={DispatcherManageList} />
         <Redirect from="/admin/*" to="/admin" />

@@ -109,7 +109,7 @@ const OrderShowList: React.FC = () => {
     },
     {
       title: '配送员',
-      dataIndex: 'dispatcher',
+      dataIndex: 'dispatcherName',
       render: (peo) => {
         if (!peo)
           return (
@@ -125,15 +125,15 @@ const OrderShowList: React.FC = () => {
       title: '配送费',
       dataIndex: 'dispatcherFee',
       width: 150,
-      render: (fee) => {
-        if (!fee)
+      render: (fee, data) => {
+        if (!data.dispatcher)
           return (
             <Space>
               <MehTwoTone twoToneColor="red" />
               暂无配送信息
             </Space>
           );
-        return fee;
+        return `￥${fee || 0}`;
       },
     },
     {

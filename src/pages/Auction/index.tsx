@@ -156,7 +156,9 @@ const AuctionPage: React.FC = () => {
             message.success('下单成功');
             history.push('/shop');
           })
-          .catch(() => {
+          .catch((err) => {
+            console.log(err);
+
             message.error('下单失败，请重试');
             history.push('/shop');
           });

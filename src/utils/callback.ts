@@ -32,4 +32,12 @@ export const loginCallback = () => {
     .then((res) => {
       res.data.data.length && authStore.setUserRate(res.data.data[0].rate);
     });
+
+  axios
+    .get('/login/account-admin', {
+      params: {
+        uid: userUid,
+      },
+    })
+    .then(authStore.setAdmin);
 };
