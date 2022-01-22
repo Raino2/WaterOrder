@@ -48,7 +48,7 @@ yarn start #启动
 
 数据库配置信息可以修改后端项目目录下 utils 下的 sql.js
 
-![image-20220123005746314](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123005746314.png)
+![image-20220123005746314](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123005746314.png?raw=true)
 
 ---
 
@@ -81,49 +81,49 @@ yarn start #启动
 
 #### 1.介绍页
 
-![image-20220123005903330](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123005903330.png)
+![image-20220123005903330](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123005903330.png?raw=true)
 
 #### 2.首页
 
-![image-20220123005935176](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123005935176.png)
+![image-20220123005935176](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123005935176.png?raw=true)
 
-![image-20220123005948528](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123005948528.png)
+![image-20220123005948528](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123005948528.png?raw=true)
 
 #### 3.商城页 & 购物车
 
-![image-20220123010016895](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010016895.png)
+![image-20220123010016895](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010016895.png?raw=true)
 
-![image-20220123010144459](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010144459.png)
+![image-20220123010144459](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010144459.png?raw=true)
 
 #### 4.结算页
 
-![image-20220123010211706](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010211706.png)
+![image-20220123010211706](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010211706.png?raw=true)
 
-![image-20220123010224425](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010224425.png)
+![image-20220123010224425](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010224425.png?raw=true)
 
 #### 5.后台 - 用户
 
-![image-20220123010311258](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010311258.png)
+![image-20220123010311258](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010311258.png?raw=true)
 
-![image-20220123010335969](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010335969.png)
+![image-20220123010335969](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010335969.png?raw=true)
 
-![image-20220123010346527](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010346527.png)
+![image-20220123010346527](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010346527.png?raw=true)
 
 #### 6.后台 - 产品
 
-![image-20220123010416086](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010416086.png)
+![image-20220123010416086](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010416086.png?raw=true)
 
 #### 7.后台 - 订单
 
-![image-20220123010436704](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010436704.png)
+![image-20220123010436704](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010436704.png?raw=true)
 
 ![image-20220123010457868](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010457868.png)
 
-![image-20220123010518544](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010518544.png)
+![image-20220123010518544](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010518544.png?raw=true)
 
 #### 8.后台 - 配送
 
-![image-20220123010547079](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010547079.png)
+![image-20220123010547079](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010547079.png?raw=true)
 
 ---
 
