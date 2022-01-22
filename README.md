@@ -46,6 +46,10 @@ yarn start #启动
 
 `sql文件位于项目目录public文件下`
 
+数据库配置信息可以修改后端项目目录下 utils 下的 sql.js
+
+![image-20220123005746314](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123005746314.png)
+
 ---
 
 ### 页面设计
@@ -59,15 +63,72 @@ yarn start #启动
 
 ##### 1.加入 Token 后配合后端实现完整的登录系统 :key:
 
- 目前是使用 localStorage 进行缓存，然后在每次进入网页的时候向后端发送一个请求，从而实现登录，但是这样并不安全和合理，可以加入 Token 机制完善登录
+目前是使用 localStorage 进行缓存，然后在每次进入网页的时候向后端发送一个请求，从而实现登录，但是这样并不安全和合理，可以加入 Token 机制完善登录
 
 ##### 2.购物车系统通过后端数据库来实现:lollipop:
 
- 目前的购物车系统生命周期会在网页关闭后结束，所以当用户刷新页面以及关闭页面的时候，购物车会清空，这一点也可以改善
+目前的购物车系统生命周期会在网页关闭后结束，所以当用户刷新页面以及关闭页面的时候，购物车会清空，这一点也可以改善
 
 ##### 3.后端的请求可以更加规范:computer:
 
- 为了方便，现在的后端请求结果分为`200`和`401`两种，这样前端可以直接catch，其实可以都返回200，通过success字段来判断是否请求成功，这样请求更安全也更规范
+为了方便，现在的后端请求结果分为`200`和`401`两种，这样前端可以直接 catch，其实可以都返回 200，通过 success 字段来判断是否请求成功，这样请求更安全也更规范
 
 #### 其他等等...
+
+---
+
+### 系统截图欣赏
+
+#### 1.介绍页
+
+![image-20220123005903330](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123005903330.png)
+
+#### 2.首页
+
+![image-20220123005935176](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123005935176.png)
+
+![image-20220123005948528](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123005948528.png)
+
+#### 3.商城页 & 购物车
+
+![image-20220123010016895](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010016895.png)
+
+![image-20220123010144459](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010144459.png)
+
+#### 4.结算页
+
+![image-20220123010211706](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010211706.png)
+
+![image-20220123010224425](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010224425.png)
+
+#### 5.后台 - 用户
+
+![image-20220123010311258](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010311258.png)
+
+![image-20220123010335969](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010335969.png)
+
+![image-20220123010346527](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010346527.png)
+
+#### 6.后台 - 产品
+
+![image-20220123010416086](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010416086.png)
+
+#### 7.后台 - 订单
+
+![image-20220123010436704](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010436704.png)
+
+![image-20220123010457868](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010457868.png)
+
+![image-20220123010518544](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010518544.png)
+
+#### 8.后台 - 配送
+
+![image-20220123010547079](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010547079.png)
+
+---
+
+- clone或fork代码查看更多功能
+- 欢迎提issue
+- 联系作者：962688180@qq.com
+- 作者：星瑞Raino
 
