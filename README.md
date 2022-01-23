@@ -48,7 +48,7 @@ yarn start #启动
 
 数据库配置信息可以修改后端项目目录下 utils 下的 sql.js
 
-![image-20220123005746314](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123005746314.png?raw=true)
+![image-20220123005746314](https://github.com/Raino2/WaterOrder/src/assets/images/image-20220123005746314.png)
 
 ---
 
