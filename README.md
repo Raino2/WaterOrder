@@ -117,7 +117,7 @@ yarn start #启动
 
 ![image-20220123010436704](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010436704.png)
 
-![image-20220123010457868](C:\Users\Raino\AppData\Roaming\Typora\typora-user-images\image-20220123010457868.png)
+![image-20220123010457868](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010457868.png)
 
 ![image-20220123010518544](https://github.com/Raino2/WaterOrder/blob/master/src/assets/images/image-20220123010518544.png)
 
