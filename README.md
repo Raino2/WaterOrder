@@ -1,4 +1,4 @@
-# :droplet:网上订水系统 🌊 - 毕业设计
+# :droplet:网上订水系统 🌊
 
 ### 项目所用技术栈:blue_heart::green_heart::purple_heart::yellow_heart::heartpulse:
 
